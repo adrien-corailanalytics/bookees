@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream text-espresso font-sans;
+  }
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+  a {
+    @apply transition-colors duration-200;
+  }
+  :focus-visible {
+    outline: 2px solid #B23A26;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brick px-6 py-3 text-sm font-semibold text-cream shadow-sm transition-all duration-200 hover:bg-bordeaux hover:-translate-y-0.5 hover:shadow-cardHover active:translate-y-0;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-espresso/25 bg-transparent px-6 py-3 text-sm font-semibold text-espresso transition-all duration-200 hover:border-espresso hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .card {
+    @apply rounded-card bg-paper shadow-card transition-all duration-300 hover:shadow-cardHover hover:-translate-y-1;
+  }
+  .tag {
+    @apply inline-flex items-center gap-1 rounded-full bg-espresso/5 px-3 py-1 text-xs font-medium uppercase tracking-wide text-espresso/70;
+  }
+}
+
+/* Micro-animation au scroll : révélation discrète */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
