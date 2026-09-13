@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { createClient } from "./supabase/server";
-import type { Event, Registration, PollResultRow } from "./types";
+import type { Event, Registration, PollResultRow, Resource, Venue } from "./types";
 
 // Les dates sont stockées en naive local Paris ; on compare en texte ISO
 // avec l'heure actuelle formatée de la même façon, ce qui reste correct
@@ -116,4 +116,26 @@ export async function getPollResults(pollId: string): Promise<PollResultRow[]> {
   const { data, error } = await supabase.rpc("get_poll_results", { p_poll_id: pollId });
   if (error) throw error;
   return (data ?? []) as PollResultRow[];
+}
+
+export async function getResources(): Promise<Resource[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("resources")
+    .select("*, events(title, slug)")
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+  return (data ?? []) as Resource[];
+}
+
+export async function getVenues(): Promise<Venue[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("venues")
+    .select("*, events(title, slug)")
+    .order("created_at", { ascending: true });
+
+  if (error) throw error;
+  return (data ?? []) as Venue[];
 }

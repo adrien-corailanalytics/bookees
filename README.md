@@ -1,9 +1,10 @@
 # Agorabica
 
-Site web du MVP Agorabica — communauté parisienne pour comprendre, discuter et
-agir sur les sujets de société. Book clubs, rencontres, vie de communauté,
-inscription aux événements avec gestion de capacité et liste d'attente, ajout
-au calendrier, sondage "Avant / Après", administration simple.
+Site web du MVP Agorabica — communauté pour comprendre, discuter et agir sur
+les sujets de société. Book clubs, rencontres, vie de communauté, inscription
+aux événements avec gestion de capacité et liste d'attente, ajout au
+calendrier, sondage "Avant / Après", une Ressourcerie (bibliothèque des
+ressources citées en book club), une carte des lieux, administration simple.
 
 ## Stack
 

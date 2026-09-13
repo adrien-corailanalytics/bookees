@@ -11,11 +11,11 @@ export const metadata: Metadata = {
   description: "Tous les book clubs, rencontres et événements communautaires Agorabica à venir.",
 };
 
-const FILTERS: { value: EventType | "all"; label: string }[] = [
-  { value: "all", label: "Tous" },
-  { value: "book_club", label: "📚 Book Clubs" },
-  { value: "rencontre", label: "🎙 Rencontres" },
-  { value: "communaute", label: "☕ Communauté" },
+const FILTERS: { value: EventType | "all"; label: string; active: string }[] = [
+  { value: "all", label: "Tous", active: "bg-espresso text-cream" },
+  { value: "book_club", label: "📚 Book Clubs", active: "bg-pine text-cream" },
+  { value: "rencontre", label: "🎙 Rencontres", active: "bg-brick text-cream" },
+  { value: "communaute", label: "☕ Communauté", active: "bg-mustard text-espresso" },
 ];
 
 export default async function EvenementsPage({
@@ -43,10 +43,8 @@ export default async function EvenementsPage({
             key={f.value}
             href={f.value === "all" ? "/evenements" : `/evenements?type=${f.value}`}
             className={cn(
-              "rounded-full px-4 py-2 text-sm font-medium transition-colors",
-              activeFilter === f.value
-                ? "bg-espresso text-cream"
-                : "bg-paper text-espresso/70 hover:bg-espresso/10"
+              "rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 hover:-translate-y-0.5",
+              activeFilter === f.value ? f.active : "bg-paper text-espresso/70 hover:bg-espresso/10"
             )}
             aria-current={activeFilter === f.value ? "true" : undefined}
           >

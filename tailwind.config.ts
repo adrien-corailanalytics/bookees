@@ -4,6 +4,7 @@ const config: Config = {
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
+    "./lib/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
@@ -15,6 +16,7 @@ const config: Config = {
         brick: "#B23A26",
         bordeaux: "#7A1E2B",
         pine: "#1F4B3F",
+        mustard: "#C98A2B",
         ink: "#211A15",
       },
       fontFamily: {

@@ -33,7 +33,7 @@ export default function Footer() {
           </div>
         </div>
         <p className="mt-12 text-xs text-espresso/50">
-          © {new Date().getFullYear()} Agorabica — Paris.
+          © {new Date().getFullYear()} Agorabica.
         </p>
       </div>
     </footer>

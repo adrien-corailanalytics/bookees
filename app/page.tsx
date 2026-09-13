@@ -4,10 +4,16 @@ import NextEventHighlight from "@/components/NextEventHighlight";
 import EventCard from "@/components/EventCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import NewsletterForm from "@/components/NewsletterForm";
+import Squiggle from "@/components/Squiggle";
 
 export default async function HomePage() {
-  const events = await getUpcomingEvents();
-  const counts = await getConfirmedCounts(events.map((e) => e.id));
+  // Le hero, les formats, Le Comptoir et la newsletter ne dépendent pas de
+  // Supabase : un incident de base de données ne doit faire disparaître que
+  // les sections d'événements, pas toute la page d'accueil.
+  const events = await getUpcomingEvents().catch(() => []);
+  const counts = await getConfirmedCounts(events.map((e) => e.id)).catch(
+    () => ({}) as Record<string, number>
+  );
   const nextEvent = events[0];
   const otherEvents = events.slice(1, 4);
 
@@ -15,14 +21,17 @@ export default async function HomePage() {
     <div>
       <section className="mx-auto max-w-6xl px-5 pb-16 pt-14 sm:pt-20">
         <div className="max-w-2xl animate-fadeUp">
-          <p className="mb-4 font-serif text-lg italic text-brick">Le café où l&rsquo;on parle du monde.</p>
           <h1 className="font-serif text-5xl leading-[1.05] text-espresso sm:text-6xl">
             AGORABICA
           </h1>
+          <p className="relative mt-5 inline-block font-serif text-xl font-semibold text-brick sm:text-2xl">
+            Le café où l&rsquo;on parle du monde.
+            <Squiggle className="absolute -bottom-2 left-0 h-2.5 w-full text-brick/60" />
+          </p>
           <p className="mt-6 text-lg leading-relaxed text-espresso/80">
-            Une communauté parisienne pour celles et ceux qui veulent mieux comprendre,
-            discuter et agir sur les sujets de société — démocratie, travail, écologie,
-            numérique, migrations. Sans slogans, sans y laisser ses amitiés.
+            Une communauté pour celles et ceux qui veulent mieux comprendre, discuter et
+            agir sur les sujets de société — démocratie, travail, écologie, numérique,
+            migrations. Sans slogans, sans y laisser ses amitiés.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link href="/evenements" className="btn-primary">
@@ -77,16 +86,20 @@ export default async function HomePage() {
         </ScrollReveal>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {[
-            { emoji: "📚", title: "Book Clubs", text: "15 à 25 personnes, une fois par mois, dans un café parisien. Une grande question, un livre ou une ressource pour nourrir l'échange.", href: "/evenements?type=book_club" },
-            { emoji: "🎙", title: "Rencontres Agorabica", text: "40 à 100 personnes, tous les 1,5 à 2 mois. Une question, deux regards complémentaires, un échange avec le public — et un apéro.", href: "/evenements?type=rencontre" },
-            { emoji: "☕", title: "Communauté", text: "Initiatives, recommandations, projets citoyens portés par les membres. Le versant vivant d'Agorabica, entre deux rencontres.", href: "/le-comptoir" },
+            { emoji: "📚", title: "Book Clubs", text: "15 à 25 personnes, une fois par mois, dans un café indépendant. Une grande question, un livre ou une ressource pour nourrir l'échange.", href: "/evenements?type=book_club", badge: "bg-pine/10", link: "text-pine" },
+            { emoji: "🎙", title: "Rencontres Agorabica", text: "40 à 100 personnes, tous les 1,5 à 2 mois. Une question, deux regards complémentaires, un échange avec le public — et un apéro.", href: "/evenements?type=rencontre", badge: "bg-brick/10", link: "text-brick" },
+            { emoji: "☕", title: "Communauté", text: "Initiatives, recommandations, projets citoyens portés par les membres. Le versant vivant d'Agorabica, entre deux rencontres.", href: "/le-comptoir", badge: "bg-mustard/15", link: "text-mustard" },
           ].map((format, i) => (
             <ScrollReveal key={format.title} delay={i * 100}>
-              <Link href={format.href} className="card flex h-full flex-col p-7">
-                <span className="text-2xl">{format.emoji}</span>
+              <Link href={format.href} className="card group flex h-full flex-col p-7">
+                <span
+                  className={`flex h-11 w-11 items-center justify-center rounded-full text-xl transition-transform duration-200 group-hover:rotate-12 ${format.badge}`}
+                >
+                  {format.emoji}
+                </span>
                 <h3 className="mt-3 font-serif text-xl text-espresso">{format.title}</h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-espresso/70">{format.text}</p>
-                <span className="mt-4 text-sm font-semibold text-brick">En savoir plus →</span>
+                <span className={`mt-4 text-sm font-semibold ${format.link}`}>En savoir plus →</span>
               </Link>
             </ScrollReveal>
           ))}

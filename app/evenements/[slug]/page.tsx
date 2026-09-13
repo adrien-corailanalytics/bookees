@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getEventBySlug, getConfirmedCounts, getPollForEvent } from "@/lib/data";
-import { EVENT_TYPE_EMOJI, EVENT_TYPE_LABELS } from "@/lib/types";
+import { EVENT_TYPE_EMOJI, EVENT_TYPE_LABELS, EVENT_TYPE_TAG_CLASSES } from "@/lib/types";
 import { formatDateLong, formatTimeRange, getCapacityInfo } from "@/lib/utils";
 import RegisterForm from "@/components/RegisterForm";
 import PollWidget from "@/components/PollWidget";
+import CapacityBar from "@/components/CapacityBar";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -52,14 +53,14 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-14">
-      <span className="tag">
+      <span className={`tag ${EVENT_TYPE_TAG_CLASSES[event.type]}`}>
         {EVENT_TYPE_EMOJI[event.type]} {EVENT_TYPE_LABELS[event.type]}
       </span>
       <h1 className="mt-4 font-serif text-4xl leading-tight text-espresso sm:text-5xl">
         {event.title}
       </h1>
       {event.question && event.question !== event.title && (
-        <p className="mt-3 max-w-2xl font-serif text-xl italic text-espresso/70">
+        <p className="mt-3 max-w-2xl border-l-2 border-espresso/15 pl-3 font-serif text-xl font-medium text-espresso/75">
           {event.question}
         </p>
       )}
@@ -166,6 +167,9 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                 </dd>
               </div>
             </dl>
+            <div className="mt-4">
+              <CapacityBar capacity={capacity} />
+            </div>
           </div>
 
           {event.registration_open ? (

@@ -11,6 +11,10 @@
   }
   h1, h2, h3, h4 {
     @apply font-serif;
+    /* Fraunces en version "soft" et légèrement "wonky" : plus chaleureux et
+       fait main qu'une serif éditoriale au carré, sans tomber dans l'italique
+       systématique. */
+    font-variation-settings: "SOFT" 60, "WONK" 1;
   }
   a {
     @apply transition-colors duration-200;
@@ -34,6 +38,60 @@
   }
   .tag {
     @apply inline-flex items-center gap-1 rounded-full bg-espresso/5 px-3 py-1 text-xs font-medium uppercase tracking-wide text-espresso/70;
+  }
+
+  /* ---------- Touches "gamifiées" années 2000 (style Habbo) ---------- */
+  /* Pastille à bordure épaisse et ombre portée dure, sans flou : le réflexe
+     visuel des badges de statut dans les jeux/forums du début des années 2000. */
+  .pixel-badge {
+    @apply inline-flex items-center gap-1 rounded px-2.5 py-1 text-[0.7rem] font-bold uppercase tracking-wide;
+    background: var(--pixel-bg, theme(colors.mustard));
+    color: var(--pixel-text, theme(colors.espresso));
+    border: 2px solid theme(colors.espresso);
+    box-shadow: 2px 2px 0 theme(colors.espresso);
+  }
+
+  /* Bouton "arcade" : relief dur façon Habbo/Neopets, s'enfonce au clic. */
+  .btn-arcade {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-cream transition-transform duration-100;
+    background: var(--arcade-bg, theme(colors.brick));
+    border: 2px solid theme(colors.espresso);
+    box-shadow: 3px 3px 0 theme(colors.espresso);
+  }
+  .btn-arcade:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 theme(colors.espresso);
+  }
+  .btn-arcade:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 theme(colors.espresso);
+  }
+  .btn-arcade:disabled {
+    @apply cursor-not-allowed opacity-60;
+    transform: none;
+  }
+
+  /* Barre de capacité façon barre de vie/XP : segments francs, pas de dégradé. */
+  .xp-bar {
+    @apply h-4 w-full overflow-hidden rounded-sm;
+    background: repeating-linear-gradient(
+      90deg,
+      theme(colors.espresso / 12%),
+      theme(colors.espresso / 12%) 9px,
+      theme(colors.espresso / 5%) 9px,
+      theme(colors.espresso / 5%) 10px
+    );
+    border: 2px solid theme(colors.espresso);
+  }
+  .xp-bar-fill {
+    @apply h-full transition-all duration-500;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--xp-color, theme(colors.pine)),
+      var(--xp-color, theme(colors.pine)) 9px,
+      color-mix(in srgb, var(--xp-color, theme(colors.pine)) 80%, black) 9px,
+      color-mix(in srgb, var(--xp-color, theme(colors.pine)) 80%, black) 10px
+    );
   }
 }
 

@@ -7,8 +7,7 @@ import "./globals.css";
 const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces",
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  axes: ["opsz", "SOFT", "WONK"],
   display: "swap",
 });
 
@@ -27,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s — Agorabica",
   },
   description:
-    "Agorabica est une communauté parisienne pour celles et ceux qui veulent mieux comprendre, discuter et agir sur les sujets de société. Book clubs, rencontres et vie de communauté, autour d'un café.",
+    "Agorabica est une communauté pour celles et ceux qui veulent mieux comprendre, discuter et agir sur les sujets de société. Book clubs, rencontres et vie de communauté, autour d'un café.",
   openGraph: {
     title: "Agorabica — Comprendre. Discuter. Agir.",
     description: "Des idées, des livres, des gens. Autour d'un café.",

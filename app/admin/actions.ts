@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireAdmin } from "@/lib/adminAuth";
-import type { EventStatus, EventType } from "@/lib/types";
+import type { EventStatus, EventType, ResourceType } from "@/lib/types";
 
 function slugify(input: string): string {
   return input
@@ -194,4 +194,76 @@ export async function createPoll(eventId: string, formData: FormData) {
   }
 
   revalidatePath(`/admin/evenements/${eventId}`);
+}
+
+export async function createResource(formData: FormData) {
+  await requireAdmin();
+  const supabase = await createClient();
+
+  const { error } = await supabase.from("resources").insert({
+    title: String(formData.get("title") ?? "").trim(),
+    type: (formData.get("type") as ResourceType) || "book",
+    author: (formData.get("author") as string)?.trim() || null,
+    description: (formData.get("description") as string)?.trim() || null,
+    url: (formData.get("url") as string)?.trim() || null,
+    event_id: (formData.get("event_id") as string) || null,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/admin/ressources");
+  revalidatePath("/ressourcerie");
+}
+
+export async function deleteResource(resourceId: string) {
+  await requireAdmin();
+  const supabase = await createClient();
+
+  const { error } = await supabase.from("resources").delete().eq("id", resourceId);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/admin/ressources");
+  revalidatePath("/ressourcerie");
+}
+
+export async function createVenue(formData: FormData) {
+  await requireAdmin();
+  const supabase = await createClient();
+
+  const lat = String(formData.get("lat") ?? "").trim();
+  const lng = String(formData.get("lng") ?? "").trim();
+
+  const { error } = await supabase.from("venues").insert({
+    name: String(formData.get("name") ?? "").trim(),
+    address: String(formData.get("address") ?? "").trim(),
+    city: (formData.get("city") as string)?.trim() || null,
+    lat: lat ? Number(lat) : null,
+    lng: lng ? Number(lng) : null,
+    description: (formData.get("description") as string)?.trim() || null,
+    event_id: (formData.get("event_id") as string) || null,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/admin/lieux");
+  revalidatePath("/carte");
+}
+
+export async function deleteVenue(venueId: string) {
+  await requireAdmin();
+  const supabase = await createClient();
+
+  const { error } = await supabase.from("venues").delete().eq("id", venueId);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/admin/lieux");
+  revalidatePath("/carte");
 }

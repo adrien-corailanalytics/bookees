@@ -15,6 +15,12 @@ const CHOICE_COLORS: Record<PollChoice, string> = {
   depends: "bg-espresso/40",
 };
 
+const CHOICE_ARCADE_COLORS: Record<PollChoice, string> = {
+  agree: "#1F4B3F",
+  disagree: "#B23A26",
+  depends: "#4A2E22",
+};
+
 function getVoterKey(): string {
   const KEY = "agorabica_voter_key";
   let key = localStorage.getItem(KEY);
@@ -146,7 +152,8 @@ export default function PollWidget({
               key={choice}
               disabled={loading}
               onClick={() => vote(choice)}
-              className="btn-secondary !px-4 !py-2 text-sm"
+              className="btn-arcade !px-4 !py-2 text-xs"
+              style={{ "--arcade-bg": CHOICE_ARCADE_COLORS[choice] } as React.CSSProperties}
             >
               {CHOICE_LABELS[choice]}
             </button>

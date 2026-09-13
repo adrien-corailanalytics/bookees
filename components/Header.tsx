@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/evenements", label: "Événements" },
+  { href: "/ressourcerie", label: "Ressourcerie" },
+  { href: "/carte", label: "Carte" },
   { href: "/le-comptoir", label: "Le Comptoir" },
   { href: "/a-propos", label: "Découvrir" },
 ];
@@ -24,7 +26,7 @@ export default function Header() {
         >
           AGORABICA
         </Link>
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Navigation principale">
+        <nav className="hidden items-center gap-6 lg:flex" aria-label="Navigation principale">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -35,12 +37,12 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        <Link href="/evenements" className="btn-primary hidden md:inline-flex">
+        <Link href="/evenements" className="btn-primary hidden lg:inline-flex">
           Voir les rencontres
         </Link>
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-full text-espresso md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full text-espresso lg:hidden"
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={open}
           aria-controls="mobile-nav"
@@ -61,7 +63,7 @@ export default function Header() {
       {open && (
         <nav
           id="mobile-nav"
-          className="border-t border-espresso/10 bg-cream px-5 py-4 md:hidden"
+          className="border-t border-espresso/10 bg-cream px-5 py-4 lg:hidden"
           aria-label="Navigation principale"
         >
           <ul className="flex flex-col gap-1">

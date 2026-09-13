@@ -16,6 +16,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <Link href="/admin/evenements/nouveau" className="text-sm text-cream/80 hover:text-cream">
               + Nouvel événement
             </Link>
+            <Link href="/admin/ressources" className="text-sm text-cream/80 hover:text-cream">
+              Ressourcerie
+            </Link>
+            <Link href="/admin/lieux" className="text-sm text-cream/80 hover:text-cream">
+              Lieux
+            </Link>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/" className="text-sm text-cream/70 hover:text-cream">
