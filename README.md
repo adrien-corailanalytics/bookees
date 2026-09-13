@@ -35,6 +35,12 @@ npm run dev      # http://localhost:3000
 npm run build    # vérifie types + build de production
 ```
 
+> **Sur le Mac d'Adrien** : la politique de sécurité du système empêche le
+> chargement du binaire natif `@next/swc-darwin-arm64`, et Turbopack (le moteur
+> par défaut de Next 16) en a besoin. Ajouter `-- --webpack` aux deux commandes :
+> `npm run dev -- --webpack`, `npm run build -- --webpack`. Sans effet sur
+> Vercel, qui construit sous Linux avec les bindings natifs.
+
 ## Modifier le contenu
 
 Tout est dans `content/` — quatre fichiers, commentés, sans SQL ni interface
