@@ -1,19 +1,13 @@
 import Link from "next/link";
-import { getUpcomingEvents, getConfirmedCounts } from "@/lib/data";
+import { getUpcomingEvents } from "@/lib/data";
 import NextEventHighlight from "@/components/NextEventHighlight";
 import EventCard from "@/components/EventCard";
 import ScrollReveal from "@/components/ScrollReveal";
-import NewsletterForm from "@/components/NewsletterForm";
 import Squiggle from "@/components/Squiggle";
+import { site } from "@/content/site";
 
-export default async function HomePage() {
-  // Le hero, les formats, Le Comptoir et la newsletter ne dépendent pas de
-  // Supabase : un incident de base de données ne doit faire disparaître que
-  // les sections d'événements, pas toute la page d'accueil.
-  const events = await getUpcomingEvents().catch(() => []);
-  const counts = await getConfirmedCounts(events.map((e) => e.id)).catch(
-    () => ({}) as Record<string, number>
-  );
+export default function HomePage() {
+  const events = getUpcomingEvents();
   const nextEvent = events[0];
   const otherEvents = events.slice(1, 4);
 
@@ -22,10 +16,10 @@ export default async function HomePage() {
       <section className="mx-auto max-w-6xl px-5 pb-16 pt-14 sm:pt-20">
         <div className="max-w-2xl animate-fadeUp">
           <h1 className="font-serif text-5xl leading-[1.05] text-espresso sm:text-6xl">
-            AGORABICA
+            {site.name}
           </h1>
           <p className="relative mt-5 inline-block font-serif text-xl font-semibold text-brick sm:text-2xl">
-            Le café où l&rsquo;on parle du monde.
+            Le book club où l&rsquo;on parle du monde.
             <Squiggle className="absolute -bottom-2 left-0 h-2.5 w-full text-brick/60" />
           </p>
           <p className="mt-6 text-lg leading-relaxed text-espresso/80">
@@ -38,7 +32,7 @@ export default async function HomePage() {
               Voir les prochaines rencontres
             </Link>
             <Link href="/a-propos" className="btn-secondary">
-              Découvrir Agorabica
+              Découvrir BOOKÉ·ES
             </Link>
           </div>
         </div>
@@ -50,7 +44,7 @@ export default async function HomePage() {
             <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-espresso/50">
               Prochain rendez-vous
             </p>
-            <NextEventHighlight event={nextEvent} confirmedCount={counts[nextEvent.id] ?? 0} />
+            <NextEventHighlight event={nextEvent} />
           </ScrollReveal>
         </section>
       )}
@@ -59,7 +53,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-6xl px-5">
           <ScrollReveal>
             <h2 className="text-center font-serif text-3xl text-espresso sm:text-4xl">
-              Agorabica en trois gestes
+              BOOKÉ·ES en trois gestes
             </h2>
           </ScrollReveal>
           <div className="mt-12 grid gap-8 sm:grid-cols-3">
@@ -87,8 +81,8 @@ export default async function HomePage() {
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {[
             { emoji: "📚", title: "Book Clubs", text: "15 à 25 personnes, une fois par mois, dans un café indépendant. Une grande question, un livre ou une ressource pour nourrir l'échange.", href: "/evenements?type=book_club", badge: "bg-pine/10", link: "text-pine" },
-            { emoji: "🎙", title: "Rencontres Agorabica", text: "40 à 100 personnes, tous les 1,5 à 2 mois. Une question, deux regards complémentaires, un échange avec le public — et un apéro.", href: "/evenements?type=rencontre", badge: "bg-brick/10", link: "text-brick" },
-            { emoji: "☕", title: "Communauté", text: "Initiatives, recommandations, projets citoyens portés par les membres. Le versant vivant d'Agorabica, entre deux rencontres.", href: "/le-comptoir", badge: "bg-mustard/15", link: "text-mustard" },
+            { emoji: "🎙", title: "Rencontres BOOKÉ·ES", text: "40 à 100 personnes, tous les 1,5 à 2 mois. Une question, deux regards complémentaires, un échange avec le public — et un apéro.", href: "/evenements?type=rencontre", badge: "bg-brick/10", link: "text-brick" },
+            { emoji: "☕", title: "Communauté", text: "Initiatives, recommandations, projets citoyens portés par les membres. Le versant vivant de BOOKÉ·ES, entre deux rencontres.", href: "/le-comptoir", badge: "bg-mustard/15", link: "text-mustard" },
           ].map((format, i) => (
             <ScrollReveal key={format.title} delay={i * 100}>
               <Link href={format.href} className="card group flex h-full flex-col p-7">
@@ -121,8 +115,8 @@ export default async function HomePage() {
             </div>
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {otherEvents.map((event, i) => (
-                <ScrollReveal key={event.id} delay={i * 80}>
-                  <EventCard event={event} confirmedCount={counts[event.id] ?? 0} />
+                <ScrollReveal key={event.slug} delay={i * 80}>
+                  <EventCard event={event} />
                 </ScrollReveal>
               ))}
             </div>
@@ -166,10 +160,18 @@ export default async function HomePage() {
         <div className="mx-auto max-w-xl px-5 text-center">
           <h2 className="font-serif text-3xl text-espresso">Rejoindre la communauté</h2>
           <p className="mt-3 text-espresso/70">
-            Un email de temps en temps pour les prochaines rencontres, jamais de spam.
+            Les dates se donnent ici, la conversation continue dans le groupe.
+            Écrivez-nous pour en être.
           </p>
-          <div className="mt-6 flex justify-center">
-            <NewsletterForm source="home" />
+          <div className="mt-6 flex flex-wrap justify-center gap-4">
+            {site.whatsappUrl && (
+              <a href={site.whatsappUrl} className="btn-primary">
+                Rejoindre le groupe
+              </a>
+            )}
+            <a href={`mailto:${site.email}`} className="btn-secondary">
+              Nous écrire
+            </a>
           </div>
         </div>
       </section>

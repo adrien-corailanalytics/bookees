@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { siteUrl } from "@/content/site";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -17,21 +18,23 @@ const inter = Inter({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+// Le contenu est figé au build ; on régénère chaque heure pour qu'un événement
+// passé bascule tout seul dans "Événements passés" sans redéploiement.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Agorabica — Comprendre. Discuter. Agir.",
-    template: "%s — Agorabica",
+    default: "BOOKÉ·ES — Comprendre. Discuter. Agir.",
+    template: "%s — BOOKÉ·ES",
   },
   description:
-    "Agorabica est une communauté pour celles et ceux qui veulent mieux comprendre, discuter et agir sur les sujets de société. Book clubs, rencontres et vie de communauté, autour d'un café.",
+    "BOOKÉ·ES est une communauté pour celles et ceux qui veulent mieux comprendre, discuter et agir sur les sujets de société. Book clubs, rencontres et vie de communauté, autour d'un café.",
   openGraph: {
-    title: "Agorabica — Comprendre. Discuter. Agir.",
+    title: "BOOKÉ·ES — Comprendre. Discuter. Agir.",
     description: "Des idées, des livres, des gens. Autour d'un café.",
     url: siteUrl,
-    siteName: "Agorabica",
+    siteName: "BOOKÉ·ES",
     locale: "fr_FR",
     type: "website",
   },

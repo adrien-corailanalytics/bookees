@@ -1,8 +1,36 @@
-# BOKÉ·ES — Document de conception
+# BOOKÉ·ES — Document de conception
 
 Ce document résume les décisions de design prises pendant le développement du
 site, pour que n'importe qui reprenant le projet comprenne le "pourquoi"
 sans avoir à relire tout l'historique de conversation.
+
+## Intention de design — le contrat (arbitré le 13/09/2026)
+
+Deux régimes distincts, ne pas les mélanger :
+
+- **Accueil = sobre.** Aucune gamification. Les textes et les éléments
+  principaux sont percutants et clairs. On doit trouver l'information
+  cherchée sans effort : prochaines dates, ce qu'est BOOKÉ·ES, où ça se
+  passe. C'est la vitrine officielle publique.
+- **Onglets = immersion.** C'est là qu'on « entre dans un monde », et c'est
+  la plus-value du site par rapport à une page Notion.
+  - **Ressourcerie** : on entre dans une bibliothèque. Sensation de
+    déplacement dans un espace, référence assumée aux jeux à l'ancienne
+    (Habbo). Pas une simple grille de cartes.
+  - **Carte** : interactive, chaque lieu porte un visuel (photo, post
+    Instagram du lieu évoqué).
+
+Registre d'ensemble : cosy, agréable, « Pinterest vibe ». Pas de
+gamification à état (pas de badges, pas de progression, pas de rôles) —
+il n'y a pas de comptes utilisateurs et il n'y en aura pas avant longtemps.
+La gamification est **spatiale et visuelle**, pas mécanique.
+
+Contraintes qui tiennent malgré l'immersion :
+- Toute vue spatiale a une **vue liste équivalente** accessible au clavier
+  et lisible par un lecteur d'écran. L'immersion est la couche, pas le seul
+  chemin.
+- Les embeds Instagram sont des scripts tiers (cookies, RGPD, poids). À
+  défaut, une image hébergée + lien.
 
 ## État actuel du projet — deux couches à ne pas confondre
 
@@ -10,27 +38,27 @@ sans avoir à relire tout l'historique de conversation.
    `supabase/`) — un Next.js complet, fonctionnel, branché à Supabase.
    Elle porte encore le nom et l'identité visuelle **Agorabica** (palette
    café — cream/espresso/brick — typographie Fraunces + Inter).
-2. **La direction visuelle BOKÉ·ES** — validée dans une maquette HTML
+2. **La direction visuelle BOOKÉ·ES** — validée dans une maquette HTML
    statique (`design/bokees-preview.html`, aussi publiée en ligne, voir
    plus bas), mais **pas encore reportée dans l'application réelle**. C'est
    la prochaine étape : appliquer ce qui suit aux vrais composants React.
 
-Ne pas supposer que le code actuel reflète la marque BOKÉ·ES — il ne le fait
+Ne pas supposer que le code actuel reflète la marque BOOKÉ·ES — il ne le fait
 pas encore. Ce document décrit la cible.
 
 ## Identité de marque
 
-- **Nom** : BOKÉ·ES (jeu de mots "book" + suffixe inclusif "·es").
+- **Nom** : BOOKÉ·ES (jeu de mots "book" + suffixe inclusif "·es").
 - **Positionnement** : "Book club conscient." — un book club qui aide à
   comprendre, discuter et agir sur les sujets de société, sans dogmatisme.
 - **Logo** : deux fichiers fournis par la cliente, dans `public/brand/` :
   - `logo-mark.jpg` — le monogramme (deux cercles imbriqués, façon
     hourglass/infini), utilisé seul comme icône (header, footer, ticket).
-  - `wordmark.jpg` — le logotype complet "BOKÉ·ES", lettrage géométrique
+  - `wordmark.jpg` — le logotype complet "BOOKÉ·ES", lettrage géométrique
     bespoke (le "O" reprend le monogramme, le "K" a un éclat de lignes
     radiales, le "S" a un empattement fluide). À utiliser tel quel pour les
     placements de marque importants (hero, ex-libris) — ce n'est **pas**
-    une police, donc le texte "BOKÉ·ES" ailleurs sur le site est composé en
+    une police, donc le texte "BOOKÉ·ES" ailleurs sur le site est composé en
     Space Grotesk gras, qui n'est qu'un standard de substitution.
   - Les deux images ont un fond blanc à grille (papier quadrillé) — c'est
     devenu un motif de marque à part entière, pas un simple fond
@@ -81,7 +109,7 @@ au logo, conformément à la demande "une DA en lien avec le logo".
 Décision explicite après retour "que ça fasse pas IA" : les emoji utilisés
 comme puces de section (📚🎙☕🔍💬🌱 etc.) ont été retirés. Remplacés par :
 - couleur + libellé texte pour les tags de format (pas de picto)
-- numérotation "01/02/03" en mono pour "BOKÉ·ES en trois gestes"
+- numérotation "01/02/03" en mono pour "BOOKÉ·ES en trois gestes"
 - initiale du format (B/R/C) dans les badges circulaires "Nos formats"
 
 ## Coins et géométrie
@@ -161,7 +189,7 @@ Agorabica — il suffira de changer les valeurs de couleur, pas la logique.
 
 ## Ce qui reste ouvert
 
-- Le rebrand Agorabica → BOKÉ·ES n'a pas été appliqué au code réel (nom,
+- Le rebrand Agorabica → BOOKÉ·ES n'a pas été appliqué au code réel (nom,
   emails transactionnels, `README.md`, metadata OpenGraph, favicon,
   `package.json`, variables d'environnement `EMAIL_FROM`). C'est un chantier
   à part, distinct de ce document.

@@ -60,15 +60,15 @@ export const initiatives: ComptoirInitiative[] = [
     description:
       "Un·e membre organise une collecte de livres pour une bibliothèque associative du 19e arrondissement. Dépôt possible lors du prochain book club.",
     ctaLabel: "En savoir plus",
-    ctaUrl: "mailto:bonjour@agorabica.fr",
+    ctaUrl: "mailto:bonjour@bookees.fr",
   },
   {
     id: "i2",
     title: "Recherche bénévoles pour l'accueil des rencontres",
-    author: "Équipe Agorabica",
+    author: "Équipe BOOKÉ·ES",
     description:
       "Un coup de main pour l'accueil et l'installation avant les grandes rencontres bimestrielles ? Quelques heures suffisent, ambiance garantie.",
     ctaLabel: "Se proposer",
-    ctaUrl: "mailto:bonjour@agorabica.fr",
+    ctaUrl: "mailto:bonjour@bookees.fr",
   },
 ];

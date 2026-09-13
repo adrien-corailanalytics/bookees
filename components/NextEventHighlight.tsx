@@ -1,20 +1,9 @@
 import Link from "next/link";
 import type { Event } from "@/lib/types";
 import { EVENT_TYPE_EMOJI, EVENT_TYPE_LABELS, EVENT_TYPE_TAG_CLASSES } from "@/lib/types";
-import { formatDateLong, formatTimeRange, getCapacityInfo } from "@/lib/utils";
-import CapacityBar from "./CapacityBar";
+import { formatDateLong, formatTimeRange } from "@/lib/utils";
 
-export default function NextEventHighlight({
-  event,
-  confirmedCount,
-}: {
-  event: Event;
-  confirmedCount: number;
-}) {
-  const capacity = getCapacityInfo(event.capacity, [
-    ...Array(confirmedCount).fill({ status: "confirmed" as const }),
-  ]);
-
+export default function NextEventHighlight({ event }: { event: Event }) {
   return (
     <div className="card grid gap-6 overflow-hidden p-8 sm:p-10 md:grid-cols-[1.4fr_1fr] md:items-center">
       <div>
@@ -43,21 +32,12 @@ export default function NextEventHighlight({
             <dd>{event.venue_name}, {event.address}</dd>
           </div>
         </dl>
-        <div className="mt-5 max-w-xs">
-          <CapacityBar capacity={capacity} />
-        </div>
-        {!capacity.isFull ? (
-          <p className="mt-2 text-sm font-medium text-pine">
-            {capacity.remaining} place{capacity.remaining > 1 ? "s" : ""} restante
-            {capacity.remaining > 1 ? "s" : ""}
-          </p>
-        ) : (
-          <p className="mt-2 text-sm font-medium text-espresso/60">
-            Complet — inscrivez-vous en liste d&rsquo;attente
-          </p>
-        )}
-        <Link href={`/evenements/${event.slug}`} className="btn-arcade mt-6" style={{ "--arcade-bg": "#B23A26" } as React.CSSProperties}>
-          {capacity.isFull ? "Rejoindre la liste d'attente" : "S'inscrire"}
+        <Link
+          href={`/evenements/${event.slug}`}
+          className="btn-arcade mt-6"
+          style={{ "--arcade-bg": "#B23A26" } as React.CSSProperties}
+        >
+          Voir la séance
         </Link>
       </div>
       <div className="relative hidden aspect-[4/5] overflow-hidden rounded-card bg-gradient-to-br from-coffee via-espresso to-ink md:block">

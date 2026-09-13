@@ -7,13 +7,13 @@ import { RESOURCE_TYPE_LABELS, RESOURCE_TYPE_EMOJI } from "@/lib/types";
 export const metadata: Metadata = {
   title: "La Ressourcerie",
   description:
-    "Tous les livres, podcasts, documentaires et articles cités dans les book clubs Agorabica, réunis au même endroit.",
+    "Tous les livres, podcasts, documentaires et articles cités dans les book clubs BOOKÉ·ES, réunis au même endroit.",
 };
 
 const SHELF_ORDER: ResourceType[] = ["book", "podcast", "documentary", "article", "other"];
 
-export default async function RessourceriePage() {
-  const resources = await getResources().catch(() => []);
+export default function RessourceriePage() {
+  const resources = getResources();
 
   const shelves = SHELF_ORDER.map((type) => ({
     type,

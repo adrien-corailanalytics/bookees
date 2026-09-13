@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { site } from "@/content/site";
 
 const links = [
   { href: "/evenements", label: "Événements" },
@@ -24,7 +25,7 @@ export default function Header() {
           className="font-serif text-xl font-semibold tracking-tight text-espresso hover:text-brick"
           onClick={() => setOpen(false)}
         >
-          AGORABICA
+          {site.name}
         </Link>
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Navigation principale">
           {links.map((link) => (

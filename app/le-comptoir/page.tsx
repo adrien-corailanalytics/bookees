@@ -4,7 +4,7 @@ import { questions, facts, initiatives } from "@/lib/comptoirContent";
 export const metadata: Metadata = {
   title: "Le Comptoir",
   description:
-    "La question du comptoir, ce que vous ne saviez peut-être pas, et les initiatives portées par la communauté Agorabica.",
+    "La question du comptoir, ce que vous ne saviez peut-être pas, et les initiatives portées par la communauté BOOKÉ·ES.",
 };
 
 export default function ComptoirPage() {
@@ -12,7 +12,7 @@ export default function ComptoirPage() {
     <div className="mx-auto max-w-4xl px-5 py-16">
       <h1 className="font-serif text-4xl text-espresso sm:text-5xl">Le Comptoir</h1>
       <p className="mt-3 max-w-xl text-espresso/70">
-        Le versant vivant d&rsquo;Agorabica, entre deux rencontres : des questions à débattre,
+        Le versant vivant de BOOKÉ·ES, entre deux rencontres : des questions à débattre,
         des choses à savoir, des initiatives à rejoindre.
       </p>
 
@@ -72,7 +72,7 @@ export default function ComptoirPage() {
         </div>
         <p className="mt-6 text-sm text-espresso/60">
           Une initiative à proposer ?{" "}
-          <a href="mailto:bonjour@agorabica.fr" className="text-brick hover:text-bordeaux">
+          <a href="mailto:bonjour@bookees.fr" className="text-brick hover:text-bordeaux">
             Écrivez-nous
           </a>
           .

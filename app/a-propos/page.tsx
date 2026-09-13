@@ -3,15 +3,15 @@ import Link from "next/link";
 import Squiggle from "@/components/Squiggle";
 
 export const metadata: Metadata = {
-  title: "Découvrir Agorabica",
+  title: "Découvrir BOOKÉ·ES",
   description:
-    "Agorabica, communauté pour comprendre, discuter et agir sur les sujets de société — sans y laisser ses amitiés.",
+    "BOOKÉ·ES, communauté pour comprendre, discuter et agir sur les sujets de société — sans y laisser ses amitiés.",
 };
 
 export default function AProposPage() {
   return (
     <div className="mx-auto max-w-3xl px-5 py-16">
-      <h1 className="font-serif text-4xl text-espresso sm:text-5xl">Découvrir Agorabica</h1>
+      <h1 className="font-serif text-4xl text-espresso sm:text-5xl">Découvrir BOOKÉ·ES</h1>
       <p className="relative mt-6 inline-block font-serif text-xl font-semibold text-brick">
         Des idées, des livres, des gens. Autour d&rsquo;un café.
         <Squiggle className="absolute -bottom-1.5 left-0 h-2 w-full text-brick/60" />
@@ -19,7 +19,7 @@ export default function AProposPage() {
 
       <div className="mt-10 space-y-6 leading-relaxed text-espresso/85">
         <p>
-          Agorabica vient de la rencontre entre l&rsquo;<strong>agora</strong>, la place publique
+          BOOKÉ·ES vient de la rencontre entre l&rsquo;<strong>agora</strong>, la place publique
           où l&rsquo;on débat, et l&rsquo;<strong>arabica</strong>, le café qui accompagne les
           conversations qui durent. C&rsquo;est une communauté pour celles et ceux qui veulent
           mieux comprendre, discuter et agir sur les sujets qui traversent la société —

@@ -1,70 +1,55 @@
 export type EventType = "book_club" | "rencontre" | "communaute";
-export type EventStatus = "draft" | "published" | "cancelled";
-export type RegistrationStatus = "confirmed" | "waitlist" | "cancelled";
-export type PollPhase = "before" | "after";
-export type PollChoice = "agree" | "disagree" | "depends";
 export type ResourceType = "book" | "podcast" | "documentary" | "article" | "other";
 
 export interface Speaker {
-  id: string;
-  event_id: string;
   name: string;
-  role: string | null;
-  bio: string | null;
-  image: string | null;
-  sort_order: number;
+  role?: string;
+  bio?: string;
 }
 
 export interface Event {
-  id: string;
   slug: string;
   title: string;
   type: EventType;
-  question: string | null;
+  /** La grande question de la séance, si elle diffère du titre. */
+  question?: string;
   description: string;
+  /** Heure locale de Paris, sans fuseau : "2026-09-26T19:00". */
   start_date: string;
   end_date: string;
-  timezone: string;
   venue_name: string;
   address: string;
-  capacity: number;
-  status: EventStatus;
-  cover_image: string | null;
-  registration_open: boolean;
-  conditions: string | null;
-  resource_title: string | null;
-  resource_url: string | null;
-  created_at: string;
+  /** Billetterie externe (HelloAsso, Billetweb…). Absent = pas d'inscription. */
+  ticket_url?: string;
+  /** Le livre / podcast / doc qui sert de support à la séance. */
+  resource_title?: string;
+  resource_url?: string;
   speakers?: Speaker[];
 }
 
-export interface Registration {
+export interface Resource {
+  /** Identifiant court et stable, sert d'ancre dans l'URL. */
   id: string;
-  event_id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  status: RegistrationStatus;
-  first_time: boolean;
-  source: string | null;
-  newsletter_opt_in: boolean;
-  cancellation_token: string;
-  created_at: string;
+  title: string;
+  type: ResourceType;
+  author?: string;
+  description?: string;
+  url?: string;
+  cover_image?: string;
+  /** Slug de l'événement où elle a été citée. */
+  event_slug?: string;
 }
 
-export interface Poll {
+export interface Venue {
   id: string;
-  event_id: string;
-  question: string;
-  current_phase: PollPhase;
-  is_open: boolean;
-  created_at: string;
-}
-
-export interface PollResultRow {
-  phase: PollPhase;
-  choice: PollChoice;
-  votes: number;
+  name: string;
+  address: string;
+  city?: string;
+  lat: number;
+  lng: number;
+  description?: string;
+  photo_url?: string;
+  instagram_url?: string;
 }
 
 export const EVENT_TYPE_LABELS: Record<EventType, string> = {
@@ -79,9 +64,9 @@ export const EVENT_TYPE_EMOJI: Record<EventType, string> = {
   communaute: "☕",
 };
 
-// Une couleur d'accent par format pour éviter le monochrome et rendre le
-// magazine plus vivant — book club = studieux (pine), rencontre = énergique
-// (brick), communauté = chaleureux (mustard).
+// Une couleur d'accent par format pour éviter le monochrome — book club =
+// studieux (pine), rencontre = énergique (brick), communauté = chaleureux
+// (mustard). C'est un code couleur utile, pas de la décoration.
 export const EVENT_TYPE_TAG_CLASSES: Record<EventType, string> = {
   book_club: "bg-pine/10 text-pine",
   rencontre: "bg-brick/10 text-brick",
@@ -99,33 +84,6 @@ export const EVENT_TYPE_TEXT_CLASSES: Record<EventType, string> = {
   rencontre: "text-brick",
   communaute: "text-mustard",
 };
-
-export interface Resource {
-  id: string;
-  title: string;
-  type: ResourceType;
-  author: string | null;
-  description: string | null;
-  url: string | null;
-  cover_image: string | null;
-  event_id: string | null;
-  created_at: string;
-  events?: { title: string; slug: string } | null;
-}
-
-export interface Venue {
-  id: string;
-  name: string;
-  address: string;
-  city: string | null;
-  lat: number | null;
-  lng: number | null;
-  description: string | null;
-  photo_url: string | null;
-  event_id: string | null;
-  created_at: string;
-  events?: { title: string; slug: string } | null;
-}
 
 export const RESOURCE_TYPE_LABELS: Record<ResourceType, string> = {
   book: "Livre",
@@ -151,10 +109,3 @@ export const RESOURCE_TYPE_SPINE_COLOR: Record<ResourceType, string> = {
   article: "#C98A2B",
   other: "#2E211A",
 };
-
-export interface CapacityInfo {
-  taken: number;
-  remaining: number;
-  isFull: boolean;
-  isAlmostFull: boolean;
-}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getUpcomingEvents, getPastEvents, getConfirmedCounts } from "@/lib/data";
+import { getUpcomingEvents, getPastEvents } from "@/lib/data";
 import EventCard from "@/components/EventCard";
 import { cn } from "@/lib/utils";
 import type { EventType } from "@/lib/types";
@@ -8,7 +8,7 @@ import { formatDateShort } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Événements",
-  description: "Tous les book clubs, rencontres et événements communautaires Agorabica à venir.",
+  description: "Tous les book clubs, rencontres et événements communautaires BOOKÉ·ES à venir.",
 };
 
 const FILTERS: { value: EventType | "all"; label: string; active: string }[] = [
@@ -23,18 +23,18 @@ export default async function EvenementsPage({
 }: {
   searchParams: Promise<{ type?: string }>;
 }) {
-  const [upcoming, past] = await Promise.all([getUpcomingEvents(), getPastEvents()]);
+  const upcoming = getUpcomingEvents();
+  const past = getPastEvents();
   const resolvedSearchParams = await searchParams;
   const activeFilter = resolvedSearchParams.type ?? "all";
   const filtered =
     activeFilter === "all" ? upcoming : upcoming.filter((e) => e.type === activeFilter);
-  const counts = await getConfirmedCounts(upcoming.map((e) => e.id));
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-16">
       <h1 className="font-serif text-4xl text-espresso sm:text-5xl">Événements</h1>
       <p className="mt-3 max-w-xl text-espresso/70">
-        Book clubs, rencontres et vie de communauté — tout ce qui se prépare chez Agorabica.
+        Book clubs, rencontres et vie de communauté — tout ce qui se prépare chez BOOKÉ·ES.
       </p>
 
       <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Filtrer par type">
@@ -60,7 +60,7 @@ export default async function EvenementsPage({
       ) : (
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((event) => (
-            <EventCard key={event.id} event={event} confirmedCount={counts[event.id] ?? 0} />
+            <EventCard key={event.slug} event={event} />
           ))}
         </div>
       )}
@@ -72,7 +72,7 @@ export default async function EvenementsPage({
           </summary>
           <ul className="mt-6 divide-y divide-espresso/10">
             {past.map((event) => (
-              <li key={event.id} className="flex items-center justify-between py-3 text-sm">
+              <li key={event.slug} className="flex items-center justify-between py-3 text-sm">
                 <span className="text-espresso/70">{event.title}</span>
                 <span className="text-espresso/40">{formatDateShort(event.start_date)}</span>
               </li>

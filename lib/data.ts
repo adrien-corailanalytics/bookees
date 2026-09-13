@@ -1,10 +1,17 @@
-import { cache } from "react";
-import { createClient } from "./supabase/server";
-import type { Event, Registration, PollResultRow, Resource, Venue } from "./types";
+import { events } from "@/content/events";
+import { resources } from "@/content/resources";
+import { venues } from "@/content/venues";
+import type { Event, Resource, Venue } from "./types";
 
-// Les dates sont stockées en naive local Paris ; on compare en texte ISO
-// avec l'heure actuelle formatée de la même façon, ce qui reste correct
-// pour un tri/filtre chronologique simple.
+// Le contenu vit dans des fichiers TypeScript (`content/`), pas dans une base.
+// ~60 ressources et 12 événements par an : une base de données coûterait plus
+// cher à maintenir que le contenu qu'elle stockerait.
+// ponytail: fichiers en dur — passer à un CMS si quelqu'un doit éditer sans
+// toucher au dépôt.
+
+// Les dates sont écrites en heure locale de Paris sans fuseau
+// ("2026-09-26T19:00"). On compare en texte ISO avec l'heure actuelle formatée
+// de la même façon : suffisant pour trier et filtrer chronologiquement.
 function nowParisNaive(): string {
   const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Europe/Paris",
@@ -20,122 +27,38 @@ function nowParisNaive(): string {
   return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}`;
 }
 
-export async function getUpcomingEvents(): Promise<Event[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("events")
-    .select("*, speakers(*)")
-    .eq("status", "published")
-    .gte("start_date", nowParisNaive())
-    .order("start_date", { ascending: true });
-
-  if (error) throw error;
-  return (data ?? []) as Event[];
+export function getUpcomingEvents(): Event[] {
+  const now = nowParisNaive();
+  return events
+    .filter((e) => e.end_date >= now)
+    .sort((a, b) => a.start_date.localeCompare(b.start_date));
 }
 
-export async function getPastEvents(): Promise<Event[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("events")
-    .select("*")
-    .eq("status", "published")
-    .lt("start_date", nowParisNaive())
-    .order("start_date", { ascending: false })
-    .limit(12);
-
-  if (error) throw error;
-  return (data ?? []) as Event[];
+export function getPastEvents(): Event[] {
+  const now = nowParisNaive();
+  return events
+    .filter((e) => e.end_date < now)
+    .sort((a, b) => b.start_date.localeCompare(a.start_date))
+    .slice(0, 12);
 }
 
-export async function getNextEvent(): Promise<Event | null> {
-  const events = await getUpcomingEvents();
-  return events[0] ?? null;
+export function getNextEvent(): Event | null {
+  return getUpcomingEvents()[0] ?? null;
 }
 
-// cache() déduplique les appels identiques au sein d'un même rendu de page
-// (generateMetadata + le composant de page appellent tous deux cette
-// fonction pour le même slug, sans dupliquer la requête à Supabase).
-export const getEventBySlug = cache(async (slug: string): Promise<Event | null> => {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("events")
-    .select("*, speakers(*)")
-    .eq("slug", slug)
-    .maybeSingle();
-
-  if (error) throw error;
-  if (!data) return null;
-  const event = data as Event;
-  if (event.status !== "published") return null;
-  return event;
-});
-
-export async function getConfirmedRegistrations(eventId: string): Promise<Registration[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("registrations")
-    .select("*")
-    .eq("event_id", eventId)
-    .neq("status", "cancelled");
-
-  if (error) throw error;
-  return (data ?? []) as Registration[];
+export function getEventBySlug(slug: string): Event | null {
+  return events.find((e) => e.slug === slug) ?? null;
 }
 
-export async function getConfirmedCounts(eventIds: string[]): Promise<Record<string, number>> {
-  if (eventIds.length === 0) return {};
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("registrations")
-    .select("event_id")
-    .in("event_id", eventIds)
-    .eq("status", "confirmed");
-
-  if (error) throw error;
-  const counts: Record<string, number> = {};
-  for (const row of data ?? []) {
-    counts[row.event_id] = (counts[row.event_id] ?? 0) + 1;
-  }
-  return counts;
+export function getResources(): Resource[] {
+  return resources;
 }
 
-export async function getPollForEvent(eventId: string) {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("polls")
-    .select("*")
-    .eq("event_id", eventId)
-    .maybeSingle();
-
-  if (error) throw error;
-  return data;
+export function getVenues(): Venue[] {
+  return venues;
 }
 
-export async function getPollResults(pollId: string): Promise<PollResultRow[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase.rpc("get_poll_results", { p_poll_id: pollId });
-  if (error) throw error;
-  return (data ?? []) as PollResultRow[];
-}
-
-export async function getResources(): Promise<Resource[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("resources")
-    .select("*, events(title, slug)")
-    .order("created_at", { ascending: false });
-
-  if (error) throw error;
-  return (data ?? []) as Resource[];
-}
-
-export async function getVenues(): Promise<Venue[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("venues")
-    .select("*, events(title, slug)")
-    .order("created_at", { ascending: true });
-
-  if (error) throw error;
-  return (data ?? []) as Venue[];
+export function getEventTitle(slug: string | undefined): string | null {
+  if (!slug) return null;
+  return events.find((e) => e.slug === slug)?.title ?? null;
 }

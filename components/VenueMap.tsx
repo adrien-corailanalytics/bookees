@@ -3,7 +3,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import Link from "next/link";
 import type { Venue } from "@/lib/types";
 
 // Icône de pin "fait main" plutôt que l'icône par défaut de Leaflet (dont les
@@ -64,13 +63,15 @@ export default function VenueMap({ venues }: { venues: Venue[] }) {
                   {venue.description}
                 </p>
               )}
-              {venue.events && (
-                <Link
-                  href={`/evenements/${venue.events.slug}`}
+              {venue.instagram_url && (
+                <a
+                  href={venue.instagram_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{ fontSize: "0.8rem", fontWeight: 600, color: "#B23A26" }}
                 >
-                  Voir la rencontre →
-                </Link>
+                  Voir le lieu sur Instagram →
+                </a>
               )}
             </div>
           </Popup>

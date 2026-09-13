@@ -1,5 +1,3 @@
-import type { CapacityInfo, RegistrationStatus } from "./types";
-
 const PARIS_TZ = "Europe/Paris";
 
 // Les dates event.start_date / end_date sont stockées en "naive timestamp"
@@ -82,20 +80,6 @@ export function parisNaiveToUTC(dateStr: string): Date {
   // Décalage entre l'heure Paris affichée pour `guess` et `guess` lui-même.
   const offsetMs = parisAsUTC - guess.getTime();
   return new Date(guess.getTime() - offsetMs);
-}
-
-export function getCapacityInfo(
-  capacity: number,
-  registrations: { status: RegistrationStatus }[]
-): CapacityInfo {
-  const taken = registrations.filter((r) => r.status === "confirmed").length;
-  const remaining = Math.max(capacity - taken, 0);
-  return {
-    taken,
-    remaining,
-    isFull: remaining <= 0,
-    isAlmostFull: remaining > 0 && remaining <= Math.max(3, Math.ceil(capacity * 0.15)),
-  };
 }
 
 export function cn(...classes: (string | false | null | undefined)[]): string {
