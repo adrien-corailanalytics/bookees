@@ -18,7 +18,6 @@ export default function Footer() {
               <li><Link href="/evenements" className="hover:text-brick">Événements</Link></li>
               <li><Link href="/ressourcerie" className="hover:text-brick">La Ressourcerie</Link></li>
               <li><Link href="/carte" className="hover:text-brick">La Carte</Link></li>
-              <li><Link href="/le-comptoir" className="hover:text-brick">Le Comptoir</Link></li>
               <li><Link href="/a-propos" className="hover:text-brick">Découvrir BOOKÉ·ES</Link></li>
             </ul>
           </div>

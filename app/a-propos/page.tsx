@@ -57,9 +57,6 @@ export default function AProposPage() {
         <Link href="/evenements" className="btn-primary">
           Voir les prochaines rencontres
         </Link>
-        <Link href="/le-comptoir" className="btn-secondary">
-          Voir le Comptoir
-        </Link>
       </div>
     </div>
   );

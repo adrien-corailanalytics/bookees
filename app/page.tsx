@@ -82,7 +82,7 @@ export default function HomePage() {
           {[
             { emoji: "📚", title: "Book Clubs", text: "15 à 25 personnes, une fois par mois, dans un café indépendant. Une grande question, un livre ou une ressource pour nourrir l'échange.", href: "/evenements?type=book_club", badge: "bg-pine/10", link: "text-pine" },
             { emoji: "🎙", title: "Rencontres BOOKÉ·ES", text: "40 à 100 personnes, tous les 1,5 à 2 mois. Une question, deux regards complémentaires, un échange avec le public — et un apéro.", href: "/evenements?type=rencontre", badge: "bg-brick/10", link: "text-brick" },
-            { emoji: "☕", title: "Communauté", text: "Initiatives, recommandations, projets citoyens portés par les membres. Le versant vivant de BOOKÉ·ES, entre deux rencontres.", href: "/le-comptoir", badge: "bg-mustard/15", link: "text-mustard" },
+            { emoji: "☕", title: "Communauté", text: "Initiatives, recommandations, projets citoyens portés par les membres. Le versant vivant de BOOKÉ·ES, entre deux rencontres.", href: "#rejoindre", badge: "bg-mustard/15", link: "text-mustard" },
           ].map((format, i) => (
             <ScrollReveal key={format.title} delay={i * 100}>
               <Link href={format.href} className="card group flex h-full flex-col p-7">
@@ -124,39 +124,7 @@ export default function HomePage() {
         </section>
       )}
 
-      <section className="mx-auto max-w-6xl px-5 py-20">
-        <ScrollReveal>
-          <div className="grid gap-8 rounded-card bg-espresso p-8 text-cream sm:p-12 md:grid-cols-3">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-cream/60">☕ Question du comptoir</p>
-              <p className="mt-3 font-serif text-lg leading-snug">
-                Quelle idée avez-vous complètement changée ces cinq dernières années ?
-              </p>
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-cream/60">🔎 Vous le saviez ?</p>
-              <p className="mt-3 text-sm leading-relaxed text-cream/85">
-                En France, un projet de loi peut être discuté et amendé pendant plus d&rsquo;un an
-                avant d&rsquo;être définitivement adopté — ou abandonné en cours de route.
-              </p>
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-cream/60">🌱 À vous de jouer</p>
-              <p className="mt-3 text-sm leading-relaxed text-cream/85">
-                Un·e membre organise une collecte de livres pour une bibliothèque associative
-                du 19e. Envie d&rsquo;aider ?
-              </p>
-            </div>
-          </div>
-          <div className="mt-6 text-center">
-            <Link href="/le-comptoir" className="text-sm font-semibold text-brick hover:text-bordeaux">
-              Voir le Comptoir en entier →
-            </Link>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      <section className="border-t border-espresso/10 bg-paper py-20">
+      <section id="rejoindre" className="border-t border-espresso/10 bg-paper py-20">
         <div className="mx-auto max-w-xl px-5 text-center">
           <h2 className="font-serif text-3xl text-espresso">Rejoindre la communauté</h2>
           <p className="mt-3 text-espresso/70">

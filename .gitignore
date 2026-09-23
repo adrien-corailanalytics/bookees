@@ -6,6 +6,5 @@ out
 .DS_Store
 *.log
 .vercel
-.attic
 tsconfig.tsbuildinfo
 next-env.d.ts

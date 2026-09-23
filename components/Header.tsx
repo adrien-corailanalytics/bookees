@@ -9,7 +9,6 @@ const links = [
   { href: "/evenements", label: "Événements" },
   { href: "/ressourcerie", label: "Ressourcerie" },
   { href: "/carte", label: "Carte" },
-  { href: "/le-comptoir", label: "Le Comptoir" },
   { href: "/a-propos", label: "Découvrir" },
 ];
 
