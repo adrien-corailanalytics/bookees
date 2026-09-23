@@ -57,7 +57,7 @@ design dans [design.md](design.md).
 | 1 | **Textes du site** | Les 29 textes `[BROUILLON]` : accroche de l'accueil, les trois étapes (comprendre, discuter, agir), les trois formats, le bloc « Rejoindre », les trois paragraphes de « Le projet », les intros de page, la Confidentialité, les messages d'erreur | Commencer par l'accueil et la séance du 26/09 ; le reste peut attendre |
 | 2 | **Séance du 26/09** | Titre de la page, texte de présentation, et s'il y a une « grande question » | À écrire avant de partager l'adresse du site |
 | 3 | **Contenus inventés** | 3 séances fictives (dont des dates à Marseille et Bordeaux), 6 ressources, 3 lieux : les retirer ou les garder comme démonstration | Retirer les séances fictives avant de montrer le site à l'extérieur : elles annoncent de fausses dates |
-| 4 | **Nom de domaine et email** | Quel domaine (`bookees.fr` ?), quelle adresse de contact | ~12 €/an, 10 minutes ; débloque aussi l'email |
+| 4 | **Nom de domaine et email** | Quel domaine, quelle adresse de contact. Au 23/09 : `bookees.fr`, `bookees.club` et `bookees.eu` sont libres ; `bookees.com` est à vendre (Afternic) | Prendre `bookees.fr` (~10 €/an) et l'adresse `bonjour@bookees.fr` qui va avec ; l'adresse du site devient `bookees.fr` |
 | 5 | **Billetterie** | HelloAsso, Billetweb… pour les séances payantes à venir | Tester avec un événement gratuit sur HelloAsso |
 | 6 | **WhatsApp sur le site** | Mettre un lien d'invitation public ? N'importe qui pourrait rejoindre le groupe. Sans lien, le bouton reste caché | À décider selon la taille voulue du groupe |
 | 7 | **Instagram** | Le kit contient des avatars : le compte existe-t-il ? Si oui, donner l'adresse | Lien affiché dans le pied de page dès qu'il est renseigné |
