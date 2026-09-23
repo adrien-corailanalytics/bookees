@@ -57,15 +57,14 @@ design dans [design.md](design.md).
 | 1 | **Textes du site** | Les 29 textes `[BROUILLON]` : accroche de l'accueil, les trois étapes (comprendre, discuter, agir), les trois formats, le bloc « Rejoindre », les trois paragraphes de « Le projet », les intros de page, la Confidentialité, les messages d'erreur | Commencer par l'accueil et la séance du 26/09 ; le reste peut attendre |
 | 2 | **Séance du 26/09** | Titre de la page, texte de présentation, et s'il y a une « grande question » | À écrire avant de partager l'adresse du site |
 | 3 | **Contenus inventés** | 3 séances fictives (dont des dates à Marseille et Bordeaux), 6 ressources, 3 lieux : les retirer ou les garder comme démonstration | Retirer les séances fictives avant de montrer le site à l'extérieur : elles annoncent de fausses dates |
-| 4 | **« BOOKÉ·ES » dans le texte** | La police BBB Poppins TN fusionne « É·E » en un seul glyphe inclusif ; le logo, lui, garde le point médian. Garder ou forcer le point visible pour le nom | À trancher par l'équipe design (Gabrielle) |
-| 5 | **Nom de domaine et email** | Quel domaine (`bookees.fr` ?), quelle adresse de contact | ~12 €/an, 10 minutes ; débloque aussi l'email |
-| 6 | **Billetterie** | HelloAsso, Billetweb… pour les séances payantes à venir | Tester avec un événement gratuit sur HelloAsso |
-| 7 | **WhatsApp sur le site** | Mettre un lien d'invitation public ? N'importe qui pourrait rejoindre le groupe. Sans lien, le bouton reste caché | À décider selon la taille voulue du groupe |
-| 8 | **Instagram** | Le kit contient des avatars : le compte existe-t-il ? Si oui, donner l'adresse | Lien affiché dans le pied de page dès qu'il est renseigné |
-| 9 | **Deux projets Vercel** | Deux projets déploient le même dépôt (`bookees-tp8n`, public, et un second, protégé par mot de passe) | En garder un seul |
-| 10 | **Dépôt public et polices** | Le dépôt GitHub est public, donc les fichiers de police aussi. BBB Poppins TN est sous licence libre ; Veteran Typewriter est « gratuite, revente interdite », sans mention claire de redistribution | Rendre le dépôt privé, ou vérifier la licence |
-| 11 | **Ressourcerie immersive** | La construire (porte, étagère, emprunt ; environ une semaine) ou garder la grille de fiches | À passer au crible (skill `grill-spec`) avant de s'y engager |
-| 12 | **Le Comptoir** | Idée gelée : une page « entre deux rencontres » (question du comptoir, « vous le saviez ? », initiatives des membres) | À rouvrir seulement si WhatsApp ne suffit plus. Ancien code : `git show 8ca1c7e:app/le-comptoir/page.tsx` |
+| 4 | **Nom de domaine et email** | Quel domaine (`bookees.fr` ?), quelle adresse de contact | ~12 €/an, 10 minutes ; débloque aussi l'email |
+| 5 | **Billetterie** | HelloAsso, Billetweb… pour les séances payantes à venir | Tester avec un événement gratuit sur HelloAsso |
+| 6 | **WhatsApp sur le site** | Mettre un lien d'invitation public ? N'importe qui pourrait rejoindre le groupe. Sans lien, le bouton reste caché | À décider selon la taille voulue du groupe |
+| 7 | **Instagram** | Le kit contient des avatars : le compte existe-t-il ? Si oui, donner l'adresse | Lien affiché dans le pied de page dès qu'il est renseigné |
+| 8 | **Deux projets Vercel** | Deux projets déploient le même dépôt (`bookees-tp8n`, public, et un second, protégé par mot de passe) | En garder un seul |
+| 9 | **Dépôt public et polices** | Le dépôt GitHub est public, donc les fichiers de police aussi. BBB Poppins TN est sous licence libre ; Veteran Typewriter est « gratuite, revente interdite », sans mention claire de redistribution | Rendre le dépôt privé, ou vérifier la licence |
+| 10 | **Ressourcerie immersive** | La construire (porte, étagère, emprunt ; environ une semaine) ou garder la grille de fiches | À passer au crible (skill `grill-spec`) avant de s'y engager |
+| 11 | **Le Comptoir** | Idée gelée : une page « entre deux rencontres » (question du comptoir, « vous le saviez ? », initiatives des membres) | À rouvrir seulement si WhatsApp ne suffit plus. Ancien code : `git show 8ca1c7e:app/le-comptoir/page.tsx` |
 
 ## À faire
 
@@ -104,4 +103,5 @@ design dans [design.md](design.md).
 - **23/09/2026** — Kit design reçu : charte appliquée, fiche de bibliothèque,
   vraies infos du 26/09, textes provisoires signalés. Le Comptoir retiré.
   Tests, CI et règles de travail avec Claude ajoutés ; documentation rangée
-  dans `docs/`.
+  dans `docs/`. Décidé : ligatures inclusives de la police coupées, le point
+  médian reste visible (« BOOKÉ·ES », « invité·es »).

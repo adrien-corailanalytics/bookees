@@ -8,6 +8,10 @@
   }
   body {
     @apply bg-white font-sans text-[1.0625rem] leading-relaxed text-encre antialiased;
+    /* BBB Poppins TN remplace les formes inclusives (« invité·es », « BOOKÉ·ES »)
+       par des glyphes fusionnés, via ses ligatures. Choix du 23/09 : garder
+       le point médian visible, comme sur le logo. */
+    font-feature-settings: "liga" 0, "rlig" 0;
   }
   h1,
   h2 {

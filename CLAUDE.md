@@ -74,8 +74,9 @@ explicitement.
   une API Next (version 16, conventions changées).
 - Veteran Typewriter n'a ni « », ni tirets longs, ni points de suspension
   (repli sur Poppins) : pas de tiret long dans un titre.
-- BBB Poppins TN fusionne les formes inclusives (« invité·es ») : ne pas
-  désactiver les ligatures.
+- Les ligatures de BBB Poppins TN sont coupées exprès (`app/globals.css`) :
+  sinon « invité·es » et « BOOKÉ·ES » deviennent des glyphes fusionnés.
+  Décision du 23/09, ne pas les réactiver sans l'équipe.
 - Carte Leaflet : garder `isolate` sur son conteneur, sinon elle passe
   au-dessus de l'en-tête.
 - `NEXT_PUBLIC_SITE_URL` : une vraie URL ou rien, jamais une valeur vide.

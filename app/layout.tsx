@@ -7,9 +7,8 @@ import { site, siteUrl } from "@/content/site";
 import { textes } from "@/content/textes";
 import "./globals.css";
 
-// Polices de la charte (dossier Drive « Booké·es / Polices »). BBB Poppins TN
-// remplace d'elle-même les formes inclusives (« invité·es ») par ses glyphes
-// post-binaires : ne pas désactiver les ligatures.
+// Polices de la charte (dossier Drive « Booké·es / Polices »). Les ligatures
+// inclusives de BBB Poppins TN sont coupées dans app/globals.css.
 const poppins = localFont({
   src: [
     { path: "./fonts/BBBPoppinsTN-TextRegular.woff2", weight: "400", style: "normal" },

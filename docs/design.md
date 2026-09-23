@@ -68,11 +68,10 @@ par des classes de `app/globals.css` :
   Ces signes retombent sur Poppins (pile `font-titre`). Éviter les tirets
   longs dans les titres.
 - **BBB Poppins TN** est une Poppins post-binaire : ses ligatures remplacent les
-  formes inclusives par des glyphes dédiés (« invité·es », « auteur·ice »).
-  C'est automatique, ne pas désactiver les ligatures. Effet de bord : dans le
-  texte courant, « BOOKÉ·ES » devient lui aussi un glyphe fusionné. Si
-  l'équipe préfère le point médian visible pour le nom, il faudra le traiter à
-  part (le logo, lui, est un SVG et n'est pas concerné).
+  formes inclusives par des glyphes fusionnés (« invité·es », et aussi
+  « BOOKÉ·ES »). **Ligatures coupées** (`font-feature-settings` dans
+  `app/globals.css`, décision du 23/09) : le point médian reste visible, comme
+  sur le logo. Les réactiver = supprimer cette ligne.
 - Les valeurs tapées à la machine (titres d'ouvrages, auteur·ices, dates de la
   fiche) sont en Veteran, comme sur le post Instagram.
 - Intitulés de fiche (LIEU, DATE, TITRE/AUTEUR·ICE) : `.etiquette`, capitales
