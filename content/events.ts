@@ -16,9 +16,10 @@ export const events: Event[] = [
     title: "[BROUILLON] Premier café BOOKÉ·ES",
     type: "book_club",
     description:
-      "[BROUILLON] Le premier café BOOKÉ·ES, en petit groupe, autour de « Comment tout " +
-      "peut s'effondrer ». Pas besoin d'avoir tout lu ni d'avoir un avis tranché : un " +
-      "tour de table, une discussion ouverte, et du café.",
+      "Idée simple : se rassembler autour d'un sujet pour en échanger. Certains " +
+      "veulent uniquement écouter, d'autres réagir et trouver des actions à mettre " +
+      "en place. Tout est possible.\n\n" +
+      "Café et matcha à consommer sur place.",
     start_date: "2026-09-26T11:00",
     end_date: "2026-09-26T13:00",
     venue_name: "Le Coucou",
