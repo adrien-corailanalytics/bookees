@@ -55,7 +55,6 @@ design dans [design.md](design.md).
 | 4 | **Nom de domaine et email** | `bookees.fr` ou `bookees.club` (choix restreint le 23/09 ; les deux étaient libres, `bookees.com` est à vendre). Avec le domaine vient l'adresse de contact | `bookees.fr` : plus familier pour un public français ; ~10 €/an |
 | 5 | **Billetterie** | HelloAsso, Billetweb… pour les séances payantes à venir | Tester avec un événement gratuit sur HelloAsso |
 | 6 | **WhatsApp sur le site** | Mettre un lien d'invitation public ? N'importe qui pourrait rejoindre le groupe. Sans lien, le bouton reste caché | À décider selon la taille voulue du groupe |
-| 7 | **Instagram** | Le kit contient des avatars : le compte existe-t-il ? Si oui, donner l'adresse | Lien affiché dans le pied de page dès qu'il est renseigné |
 | 8 | **Dépôt public ou privé** | Le dépôt GitHub est public : le code, la doc, l'historique et les fichiers de police sont visibles de tous. BBB Poppins TN est sous licence libre ; Veteran Typewriter est « gratuite, revente interdite », sans mention claire de redistribution | Passe dédiée prévue plus tard (demande d'Adrien, 23/09) : ce qui est exposé, les licences, public ou privé |
 | 9 | **Ressourcerie immersive** | La construire (porte, étagère, emprunt ; environ une semaine) ou garder la grille de fiches | À passer au crible (skill `grill-spec`) avant de s'y engager |
 | 10 | **Le Comptoir** | Idée gelée : une page « entre deux rencontres » (question du comptoir, « vous le saviez ? », initiatives des membres) | À rouvrir seulement si WhatsApp ne suffit plus. Ancien code : `git show 8ca1c7e:app/le-comptoir/page.tsx` |
@@ -109,3 +108,8 @@ design dans [design.md](design.md).
   Vercel en double est supprimé. Domaine : `bookees.fr` ou `bookees.club`.
   Mesure d'audience (Vercel Analytics, Speed Insights) écartée pour
   l'instant : aucune décision n'en dépend.
+  En-tête : le bouton « Prochaines dates » retiré (doublon du lien
+  « Événements ») ; titres d'onglet séparés par « · » au lieu du tiret long
+  (demande d'Adrien).
+  Instagram : le compte existe (@bookees.club), lien affiché dans le pied de
+  page. Le nom du compte plaide pour le domaine `bookees.club`.
