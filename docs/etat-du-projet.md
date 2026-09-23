@@ -59,6 +59,7 @@ design dans [design.md](design.md).
 | 8 | **Dépôt public ou privé** | Le dépôt GitHub est public : le code, la doc, l'historique et les fichiers de police sont visibles de tous. BBB Poppins TN est sous licence libre ; Veteran Typewriter est « gratuite, revente interdite », sans mention claire de redistribution | Passe dédiée prévue plus tard (demande d'Adrien, 23/09) : ce qui est exposé, les licences, public ou privé |
 | 9 | **Ressourcerie immersive** | La construire (porte, étagère, emprunt ; environ une semaine) ou garder la grille de fiches | À passer au crible (skill `grill-spec`) avant de s'y engager |
 | 10 | **Le Comptoir** | Idée gelée : une page « entre deux rencontres » (question du comptoir, « vous le saviez ? », initiatives des membres) | À rouvrir seulement si WhatsApp ne suffit plus. Ancien code : `git show 8ca1c7e:app/le-comptoir/page.tsx` |
+| 11 | **Mesure d'audience** | Installer Vercel Web Analytics ou Speed Insights (PR #2, ouverte d'office par Vercel) ? Les deux contredisent la page Confidentialité (« aucun outil de mesure d'audience ») | Pas maintenant : aucune décision n'en dépend (passé au crible le 23/09). Demander à l'équipe si elle tient à la promesse « aucun traceur » ; rouvrir si un besoin précis apparaît (canaux, partenaire à convaincre). Fermer la PR #2 |
 
 ## À faire
 
@@ -106,3 +107,5 @@ design dans [design.md](design.md).
   dépendances réinstallées, Turbopack refonctionne sur le Mac d'Adrien.
   PR #1 fusionnée et mise en ligne sur bookees-mu.vercel.app ; le projet
   Vercel en double est supprimé. Domaine : `bookees.fr` ou `bookees.club`.
+  Mesure d'audience (Vercel Analytics, Speed Insights) écartée pour
+  l'instant : aucune décision n'en dépend.
