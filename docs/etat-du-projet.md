@@ -113,3 +113,5 @@ design dans [design.md](design.md).
   (demande d'Adrien).
   Instagram : le compte existe (@bookees.club), lien affiché dans le pied de
   page. Le nom du compte plaide pour le domaine `bookees.club`.
+  Bouton « Suivre sur Instagram » ajouté au bloc « Rejoindre la communauté »
+  de l'accueil : le lien du pied de page passait inaperçu.
