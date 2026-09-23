@@ -132,6 +132,11 @@ export default function HomePage() {
                 {t.rejoindre.whatsapp}
               </a>
             )}
+            {site.instagramUrl && (
+              <a href={site.instagramUrl} className="btn">
+                {t.rejoindre.instagram}
+              </a>
+            )}
             <a href={`mailto:${site.email}`} className="btn-ghost">
               {t.rejoindre.email}
             </a>
