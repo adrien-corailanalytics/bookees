@@ -12,10 +12,9 @@ description: Use when putting BOOKÉ·ES changes online — pushing a branch, op
 - Chaque branche poussée et chaque PR → **déploiement d'aperçu**. Les aperçus
   sont protégés (connexion Vercel requise) : pour les montrer à l'équipe,
   utiliser « Share » dans le tableau de bord Vercel.
-- **Fusion dans `main` = mise en production.** URL publique actuelle :
-  <https://bookees-tp8n.vercel.app> (pas encore de domaine).
-- Deux projets Vercel déploient le même dépôt (voir `docs/etat-du-projet.md`,
-  « À décider ») : vérifier les deux statuts tant que ce n'est pas réglé.
+- **Fusion dans `main` = mise en production.** Un seul projet Vercel
+  (`bookees`), URL publique actuelle : <https://bookees-mu.vercel.app> (pas
+  encore de domaine).
 - La CI GitHub (`.github/workflows/check.yml`) relance `npm run check` et le
   build sur chaque PR.
 
@@ -47,12 +46,12 @@ accessible, sinon demander à l'utilisateur de l'ouvrir).
 ## Fusionner (seulement avec un accord explicite)
 
 ```bash
-gh pr merge <n> --rebase --delete-branch
+gh pr merge <n> --merge --delete-branch     # ou --rebase ; jamais --squash
 ```
 
-*Rebase and merge* : chaque commit arrive tel quel sur `main`, l'historique
-reste lisible pour les sessions suivantes. Pas de squash, sauf si les commits
-de la branche sont du travail en cours.
+Merge commit ou rebase : chaque commit arrive tel quel sur `main`, et
+l'historique reste lisible pour les sessions suivantes. Pas de squash, sauf
+si les commits de la branche sont du travail en cours.
 
 ## Vérifier la production
 
@@ -65,7 +64,7 @@ gh api repos/adrien-corailanalytics/bookees/deployments --jq '.[0:2][] | {enviro
 Puis, sur l'URL publique :
 
 ```bash
-BASE=https://bookees-tp8n.vercel.app
+BASE=https://bookees-mu.vercel.app
 for p in / /evenements /ressourcerie /carte /a-propos /confidentialite /sitemap.xml; do
   printf "%s %s\n" "$(curl -s -o /dev/null -w '%{http_code}' $BASE$p)" "$p"; done
 curl -s $BASE/ | grep -o '<title>[^<]*</title>'

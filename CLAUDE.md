@@ -52,7 +52,8 @@ explicitement.
 - Jamais de commit sur `main` : une branche par sujet (`kebab-case` en
   français, ex. `seance-octobre`, `ressourcerie-immersive`).
 - Un commit = une intention. Il doit passer `npm run check` seul : la PR est
-  fusionnée par *Rebase and merge*, chaque commit arrive tel quel sur `main`.
+  fusionnée sans squash (merge commit ou rebase), chaque commit arrive tel
+  quel sur `main`.
 - Message en français. Titre : un verbe à l'infinitif, ≤ 72 caractères
   (« Ajouter la séance du 15 octobre », « Contenu : valider l'accroche de
   l'accueil »). Corps : le **pourquoi**, ce qui n'est pas visible dans le diff,

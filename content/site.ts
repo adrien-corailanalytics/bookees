@@ -7,7 +7,7 @@ export const site = {
   email: "bonjour@bookees.fr",
   // Lien d'invitation au groupe WhatsApp. Vide = le bouton ne s'affiche pas.
   whatsappUrl: "",
-  instagramUrl: "",
+  instagramUrl: "https://www.instagram.com/bookees.club/",
 };
 
 // Une variable d'environnement définie mais vide est traitée comme absente :
