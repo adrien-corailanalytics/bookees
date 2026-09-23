@@ -54,7 +54,7 @@ const VTIMEZONE_PARIS = [
   "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU",
   "END:STANDARD",
   "END:VTIMEZONE",
-].join("\r\n");
+];
 
 export function generateICS(event: Event, siteUrl: string): string {
   const eventUrl = `${siteUrl}/evenements/${event.slug}`;
@@ -67,7 +67,7 @@ export function generateICS(event: Event, siteUrl: string): string {
     "PRODID:-//BOOKÉ·ES//Evenements//FR",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
-    VTIMEZONE_PARIS,
+    ...VTIMEZONE_PARIS,
     "BEGIN:VEVENT",
     `UID:${event.slug}@bookees`,
     `DTSTAMP:${nowStamp()}`,
