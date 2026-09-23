@@ -45,9 +45,6 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        <Link href="/evenements" className="btn hidden !py-2.5 lg:inline-flex">
-          {t.cta}
-        </Link>
         <button
           type="button"
           className="flex h-10 w-10 items-center justify-center rounded-full border border-encre lg:hidden"
@@ -84,9 +81,6 @@ export default function Header() {
               </li>
             ))}
           </ul>
-          <Link href="/evenements" onClick={() => setOpen(false)} className="btn mt-4 w-full">
-            {t.cta}
-          </Link>
         </nav>
       )}
     </header>

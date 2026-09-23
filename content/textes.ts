@@ -16,7 +16,7 @@ import type { EventType, ResourceType } from "@/lib/types";
 
 export const textes = {
   meta: {
-    titre: "BOOKÉ·ES — Book club conscient",
+    titre: "BOOKÉ·ES · Book club conscient",
     description:
       "[BROUILLON] Un book club pour celles et ceux qui veulent mieux comprendre, " +
       "discuter et agir sur les sujets de société. Sans slogans, sans y laisser ses amitiés.",
@@ -29,7 +29,6 @@ export const textes = {
     ressourcerie: "Ressourcerie",
     carte: "Carte",
     projet: "Le projet",
-    cta: "Prochaines dates",
     ouvrirMenu: "Ouvrir le menu",
     fermerMenu: "Fermer le menu",
   },

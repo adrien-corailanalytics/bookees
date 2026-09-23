@@ -109,3 +109,6 @@ design dans [design.md](design.md).
   Vercel en double est supprimé. Domaine : `bookees.fr` ou `bookees.club`.
   Mesure d'audience (Vercel Analytics, Speed Insights) écartée pour
   l'instant : aucune décision n'en dépend.
+  En-tête : le bouton « Prochaines dates » retiré (doublon du lien
+  « Événements ») ; titres d'onglet séparés par « · » au lieu du tiret long
+  (demande d'Adrien).
