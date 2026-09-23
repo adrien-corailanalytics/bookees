@@ -47,12 +47,12 @@ accessible, sinon demander à l'utilisateur de l'ouvrir).
 ## Fusionner (seulement avec un accord explicite)
 
 ```bash
-gh pr merge <n> --rebase --delete-branch
+gh pr merge <n> --merge --delete-branch     # ou --rebase ; jamais --squash
 ```
 
-*Rebase and merge* : chaque commit arrive tel quel sur `main`, l'historique
-reste lisible pour les sessions suivantes. Pas de squash, sauf si les commits
-de la branche sont du travail en cours.
+Merge commit ou rebase : chaque commit arrive tel quel sur `main`, et
+l'historique reste lisible pour les sessions suivantes. Pas de squash, sauf
+si les commits de la branche sont du travail en cours.
 
 ## Vérifier la production
 

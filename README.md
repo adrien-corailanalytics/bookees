@@ -90,7 +90,7 @@ CLAUDE.md       règles de travail pour Claude ; skills dans .claude/skills/
 
 ## Contribuer
 
-Une branche par sujet, une PR, fusion par « Rebase and merge » : chaque commit
-arrive tel quel sur `main`, il doit donc passer `npm run check` et expliquer
+Une branche par sujet, une PR, fusion sans squash (« Create a merge commit » ou
+« Rebase and merge ») : chaque commit arrive tel quel sur `main`, il doit donc passer `npm run check` et expliquer
 son pourquoi. La CI GitHub relance les vérifications et le build ; Vercel
 publie un aperçu de chaque PR et met en ligne `main`.
