@@ -118,3 +118,5 @@ design dans [design.md](design.md).
   séance du 26/09, « Entrée libre. » remplace le brouillon « sans
   inscription ». Le « Tu viens ? » du post n'est pas repris : le site
   vouvoie.
+  Bouton « Suivre sur Instagram » ajouté au bloc « Rejoindre la communauté »
+  de l'accueil : le lien du pied de page passait inaperçu.

@@ -73,6 +73,7 @@ export const textes = {
         "[BROUILLON] Les dates se donnent ici, la conversation continue sur WhatsApp. " +
         "Écrivez-nous pour en être.",
       whatsapp: "Rejoindre le groupe WhatsApp",
+      instagram: "Suivre sur Instagram",
       email: "Nous écrire",
     },
   },
