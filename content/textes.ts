@@ -18,8 +18,7 @@ export const textes = {
   meta: {
     titre: "BOOKÉ·ES · Book club conscient",
     description:
-      "[BROUILLON] Un book club pour celles et ceux qui veulent mieux comprendre, " +
-      "discuter et agir sur les sujets de société. Sans slogans, sans y laisser ses amitiés.",
+      "Des évènements où écouter, parler, se retrouver (ou même être seul·e dans son coin).",
   },
 
   navigation: {
@@ -34,9 +33,9 @@ export const textes = {
   },
 
   accueil: {
+    // Bio Instagram de l'équipe.
     intro:
-      "[BROUILLON] Une communauté pour celles et ceux qui veulent mieux comprendre, " +
-      "discuter et agir sur les sujets de société. Sans slogans, sans y laisser ses amitiés.",
+      "Des évènements où écouter, parler, se retrouver (ou même être seul·e dans son coin).",
     ctaDates: "Voir les prochaines dates",
     ctaProjet: "Découvrir le projet",
     prochainRendezVous: "Prochain rendez-vous",
@@ -147,7 +146,7 @@ export const textes = {
     calendrier: "Ajouter au calendrier",
     reserver: "Réserver sa place",
     inscriptionOuverte: "Inscription ouverte",
-    sansInscription: "[BROUILLON] Pas d'inscription pour cette séance : venez, c'est tout.",
+    sansInscription: "Entrée libre.",
     intervenants: "Intervenant·es",
     support: "Support de la séance",
   },

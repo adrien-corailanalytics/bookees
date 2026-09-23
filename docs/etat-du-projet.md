@@ -40,7 +40,7 @@ design dans [design.md](design.md).
 | Charte | Kit design du 23/09 appliqué partout : noir sur blanc, pastels, Veteran Typewriter et BBB Poppins TN, logos SVG, favicon BK | [design.md](design.md) |
 | Fiche de bibliothèque | Le post Instagram du 26/09 refait en HTML, sur l'accueil et sur chaque séance | `components/Ticket.tsx` |
 | Contenu réel | Séance du 26/09, lieu Le Coucou (sur la carte, avec son logo), livre du 26/09 | `content/` |
-| Textes provisoires | Tous les textes sont dans un seul fichier. 29 textes rédigés par un agent sont marqués `[BROUILLON]` et surlignés sur le site ; 12 contenus inventés (3 séances, 6 ressources, 3 lieux) sont encadrés « fictif » | `content/textes.ts` |
+| Textes provisoires | Tous les textes sont dans un seul fichier. 26 textes rédigés par un agent sont marqués `[BROUILLON]` et surlignés sur le site ; 12 contenus inventés (3 séances, 6 ressources, 3 lieux) sont encadrés « fictif » | `content/textes.ts` |
 | Nettoyage | Le Comptoir retiré (hors périmètre), restes de Supabase supprimés | historique git |
 | Garde-fous | `npm run check` (types, lint, tests) avant chaque commit ; la CI GitHub le relance avec le build sur chaque PR | `tests/`, `.github/` |
 | Travail avec Claude | Règles du projet et skills (spec produit, contenu, déploiement, captures d'écran) | `CLAUDE.md`, `.claude/skills/` |
@@ -49,8 +49,8 @@ design dans [design.md](design.md).
 
 | # | Sujet | Ce qu'il faut trancher | Recommandation |
 |---|---|---|---|
-| 1 | **Textes du site** | Les 29 textes `[BROUILLON]` : accroche de l'accueil, les trois étapes (comprendre, discuter, agir), les trois formats, le bloc « Rejoindre », les trois paragraphes de « Le projet », les intros de page, la Confidentialité, les messages d'erreur | Commencer par l'accueil et la séance du 26/09 ; le reste peut attendre |
-| 2 | **Séance du 26/09** | Titre de la page, texte de présentation, et s'il y a une « grande question » | À écrire avant de partager l'adresse du site |
+| 1 | **Textes du site** | Les 26 textes `[BROUILLON]` : les trois étapes (comprendre, discuter, agir), les trois formats, le bloc « Rejoindre », les trois paragraphes de « Le projet », les intros de page, la Confidentialité, les messages d'erreur | Accroche de l'accueil faite (bio Instagram, 23/09) ; le reste peut attendre |
+| 2 | **Séance du 26/09** | Titre de la page, et s'il y a une « grande question » (texte de présentation fait : post Instagram, 23/09) | Titre à choisir avant de partager l'adresse du site |
 | 3 | **Contenus inventés** | 3 séances fictives (dont des dates à Marseille et Bordeaux), 6 ressources, 3 lieux : les retirer ou les garder comme démonstration | Retirer les séances fictives avant de montrer le site à l'extérieur : elles annoncent de fausses dates |
 | 4 | **Nom de domaine et email** | `bookees.fr` ou `bookees.club` (choix restreint le 23/09 ; les deux étaient libres, `bookees.com` est à vendre). Avec le domaine vient l'adresse de contact | `bookees.fr` : plus familier pour un public français ; ~10 €/an |
 | 5 | **Billetterie** | HelloAsso, Billetweb… pour les séances payantes à venir | Tester avec un événement gratuit sur HelloAsso |
@@ -113,3 +113,8 @@ design dans [design.md](design.md).
   (demande d'Adrien).
   Instagram : le compte existe (@bookees.club), lien affiché dans le pied de
   page. Le nom du compte plaide pour le domaine `bookees.club`.
+  Textes de l'équipe posés : la bio Instagram devient l'accroche de l'accueil
+  (et la description du site), le premier post devient la présentation de la
+  séance du 26/09, « Entrée libre. » remplace le brouillon « sans
+  inscription ». Le « Tu viens ? » du post n'est pas repris : le site
+  vouvoie.
