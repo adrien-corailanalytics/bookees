@@ -1,10 +1,17 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getUpcomingEvents } from "@/lib/data";
-import NextEventHighlight from "@/components/NextEventHighlight";
+import { EVENT_TYPE_BG } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import Ticket from "@/components/Ticket";
 import EventCard from "@/components/EventCard";
-import ScrollReveal from "@/components/ScrollReveal";
-import Squiggle from "@/components/Squiggle";
+import T from "@/components/T";
 import { site } from "@/content/site";
+import { textes } from "@/content/textes";
+import logo from "@/public/brand/bookees-slogan.svg";
+
+const t = textes.accueil;
+const STEP_BG = ["bg-vert", "bg-rose", "bg-bleu"];
 
 export default function HomePage() {
   const events = getUpcomingEvents();
@@ -13,164 +20,120 @@ export default function HomePage() {
 
   return (
     <div>
-      <section className="mx-auto max-w-6xl px-5 pb-16 pt-14 sm:pt-20">
-        <div className="max-w-2xl animate-fadeUp">
-          <h1 className="font-serif text-5xl leading-[1.05] text-espresso sm:text-6xl">
-            {site.name}
+      <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 sm:py-20 md:grid-cols-[1.1fr_1fr]">
+        <div>
+          <h1>
+            <Image src={logo} alt="BOOKÉ·ES — Book club conscient" className="h-auto w-full max-w-md" priority />
           </h1>
-          <p className="relative mt-5 inline-block font-serif text-xl font-semibold text-brick sm:text-2xl">
-            Le book club où l&rsquo;on parle du monde.
-            <Squiggle className="absolute -bottom-2 left-0 h-2.5 w-full text-brick/60" />
+          <p className="sous-titre mt-10 max-w-xl">
+            <T>{t.intro}</T>
           </p>
-          <p className="mt-6 text-lg leading-relaxed text-espresso/80">
-            Une communauté pour celles et ceux qui veulent mieux comprendre, discuter et
-            agir sur les sujets de société — démocratie, travail, écologie, numérique,
-            migrations. Sans slogans, sans y laisser ses amitiés.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Link href="/evenements" className="btn-primary">
-              Voir les prochaines rencontres
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/evenements" className="btn">
+              {t.ctaDates}
             </Link>
-            <Link href="/a-propos" className="btn-secondary">
-              Découvrir BOOKÉ·ES
+            <Link href="/a-propos" className="btn-ghost">
+              {t.ctaProjet}
             </Link>
           </div>
         </div>
+
+        {nextEvent && (
+          <div className={cn("mx-auto w-full max-w-md", nextEvent.demo && "demo")}>
+            <p className="etiquette mb-3">{t.prochainRendezVous}</p>
+            <Ticket event={nextEvent} />
+            <Link href={`/evenements/${nextEvent.slug}`} className="lien mt-4 inline-block text-sm font-semibold">
+              {t.voirSeance} →
+            </Link>
+          </div>
+        )}
       </section>
 
-      {nextEvent && (
-        <section className="mx-auto max-w-6xl px-5 pb-20">
-          <ScrollReveal>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-espresso/50">
-              Prochain rendez-vous
-            </p>
-            <NextEventHighlight event={nextEvent} />
-          </ScrollReveal>
-        </section>
-      )}
+      <section className="border-t border-encre">
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
+          <h2 className="titre-2">{t.filRouge.titre}</h2>
+          <ol className="mt-10 grid gap-10 sm:grid-cols-3">
+            {t.filRouge.etapes.map((step, i) => (
+              <li key={step.titre}>
+                <span
+                  className={cn(
+                    "flex h-14 w-14 items-center justify-center rounded-full border border-encre font-titre text-2xl",
+                    STEP_BG[i]
+                  )}
+                  aria-hidden="true"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="titre-3 mt-5">{step.titre}</h3>
+                <p className="mt-2">
+                  <T>{step.texte}</T>
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
-      <section className="bg-paper py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <ScrollReveal>
-            <h2 className="text-center font-serif text-3xl text-espresso sm:text-4xl">
-              BOOKÉ·ES en trois gestes
-            </h2>
-          </ScrollReveal>
-          <div className="mt-12 grid gap-8 sm:grid-cols-3">
-            {[
-              { title: "Comprendre", text: "Un livre, un podcast, un documentaire pour poser les bases d'un sujet — sans jargon ni simplification.", emoji: "🔍" },
-              { title: "Discuter", text: "Des rencontres pensées pour l'échange réel, avec des personnes qui ne pensent pas comme vous.", emoji: "💬" },
-              { title: "Agir", text: "Des initiatives citoyennes portées par la communauté, à rejoindre ou à proposer.", emoji: "🌱" },
-            ].map((item, i) => (
-              <ScrollReveal key={item.title} delay={i * 100}>
-                <div className="text-center">
-                  <span className="text-3xl">{item.emoji}</span>
-                  <h3 className="mt-3 font-serif text-xl text-espresso">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-espresso/70">{item.text}</p>
+      <section className="border-t border-encre">
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
+          <h2 className="titre-2">{t.formatsTitre}</h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {textes.formats.map((format) => (
+              <div key={format.type} className={cn("fiche flex flex-col", EVENT_TYPE_BG[format.type])}>
+                <p className="etiquette border-b border-encre px-5 py-3">{format.rythme}</p>
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="font-titre text-2xl">{format.titre}</h3>
+                  <p className="mt-3 flex-1 text-[0.95rem]">
+                    <T>{format.texte}</T>
+                  </p>
+                  {format.type === "communaute" ? (
+                    <a href="#rejoindre" className="lien mt-5 text-sm font-semibold">
+                      {t.nousRejoindre} →
+                    </a>
+                  ) : (
+                    <Link href={`/evenements?type=${format.type}`} className="lien mt-5 text-sm font-semibold">
+                      {t.voirLesDates} →
+                    </Link>
+                  )}
                 </div>
-              </ScrollReveal>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20">
-        <ScrollReveal>
-          <h2 className="font-serif text-3xl text-espresso sm:text-4xl">Nos formats</h2>
-        </ScrollReveal>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {[
-            { emoji: "📚", title: "Book Clubs", text: "15 à 25 personnes, une fois par mois, dans un café indépendant. Une grande question, un livre ou une ressource pour nourrir l'échange.", href: "/evenements?type=book_club", badge: "bg-pine/10", link: "text-pine" },
-            { emoji: "🎙", title: "Rencontres BOOKÉ·ES", text: "40 à 100 personnes, tous les 1,5 à 2 mois. Une question, deux regards complémentaires, un échange avec le public — et un apéro.", href: "/evenements?type=rencontre", badge: "bg-brick/10", link: "text-brick" },
-            { emoji: "☕", title: "Communauté", text: "Initiatives, recommandations, projets citoyens portés par les membres. Le versant vivant de BOOKÉ·ES, entre deux rencontres.", href: "/le-comptoir", badge: "bg-mustard/15", link: "text-mustard" },
-          ].map((format, i) => (
-            <ScrollReveal key={format.title} delay={i * 100}>
-              <Link href={format.href} className="card group flex h-full flex-col p-7">
-                <span
-                  className={`flex h-11 w-11 items-center justify-center rounded-full text-xl transition-transform duration-200 group-hover:rotate-12 ${format.badge}`}
-                >
-                  {format.emoji}
-                </span>
-                <h3 className="mt-3 font-serif text-xl text-espresso">{format.title}</h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-espresso/70">{format.text}</p>
-                <span className={`mt-4 text-sm font-semibold ${format.link}`}>En savoir plus →</span>
-              </Link>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
       {otherEvents.length > 0 && (
-        <section className="bg-paper py-20">
-          <div className="mx-auto max-w-6xl px-5">
-            <div className="flex items-baseline justify-between">
-              <ScrollReveal>
-                <h2 className="font-serif text-3xl text-espresso sm:text-4xl">
-                  Quelques prochaines rencontres
-                </h2>
-              </ScrollReveal>
-              <Link href="/evenements" className="hidden text-sm font-semibold text-brick sm:inline">
-                Tout voir →
+        <section className="border-t border-encre">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
+            <div className="flex items-baseline justify-between gap-4">
+              <h2 className="titre-2">{t.prochainesDates}</h2>
+              <Link href="/evenements" className="lien text-sm font-semibold">
+                {t.toutVoir} →
               </Link>
             </div>
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {otherEvents.map((event, i) => (
-                <ScrollReveal key={event.slug} delay={i * 80}>
-                  <EventCard event={event} />
-                </ScrollReveal>
+              {otherEvents.map((event) => (
+                <EventCard key={event.slug} event={event} />
               ))}
             </div>
           </div>
         </section>
       )}
 
-      <section className="mx-auto max-w-6xl px-5 py-20">
-        <ScrollReveal>
-          <div className="grid gap-8 rounded-card bg-espresso p-8 text-cream sm:p-12 md:grid-cols-3">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-cream/60">☕ Question du comptoir</p>
-              <p className="mt-3 font-serif text-lg leading-snug">
-                Quelle idée avez-vous complètement changée ces cinq dernières années ?
-              </p>
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-cream/60">🔎 Vous le saviez ?</p>
-              <p className="mt-3 text-sm leading-relaxed text-cream/85">
-                En France, un projet de loi peut être discuté et amendé pendant plus d&rsquo;un an
-                avant d&rsquo;être définitivement adopté — ou abandonné en cours de route.
-              </p>
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-cream/60">🌱 À vous de jouer</p>
-              <p className="mt-3 text-sm leading-relaxed text-cream/85">
-                Un·e membre organise une collecte de livres pour une bibliothèque associative
-                du 19e. Envie d&rsquo;aider ?
-              </p>
-            </div>
-          </div>
-          <div className="mt-6 text-center">
-            <Link href="/le-comptoir" className="text-sm font-semibold text-brick hover:text-bordeaux">
-              Voir le Comptoir en entier →
-            </Link>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      <section className="border-t border-espresso/10 bg-paper py-20">
-        <div className="mx-auto max-w-xl px-5 text-center">
-          <h2 className="font-serif text-3xl text-espresso">Rejoindre la communauté</h2>
-          <p className="mt-3 text-espresso/70">
-            Les dates se donnent ici, la conversation continue dans le groupe.
-            Écrivez-nous pour en être.
+      <section id="rejoindre" className="border-t border-encre bg-rose">
+        <div className="mx-auto max-w-xl px-5 py-16 text-center sm:py-20">
+          <h2 className="titre-2">{t.rejoindre.titre}</h2>
+          <p className="mt-4">
+            <T>{t.rejoindre.texte}</T>
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-4">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             {site.whatsappUrl && (
-              <a href={site.whatsappUrl} className="btn-primary">
-                Rejoindre le groupe
+              <a href={site.whatsappUrl} className="btn">
+                {t.rejoindre.whatsapp}
               </a>
             )}
-            <a href={`mailto:${site.email}`} className="btn-secondary">
-              Nous écrire
+            <a href={`mailto:${site.email}`} className="btn-ghost">
+              {t.rejoindre.email}
             </a>
           </div>
         </div>

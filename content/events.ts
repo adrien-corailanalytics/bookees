@@ -1,34 +1,36 @@
 import type { Event } from "@/lib/types";
 
-// ⚠️ CONTENU DE DÉMONSTRATION — les trois derniers événements sont fictifs
-// (villes, cafés et intervenants inventés pendant le prototypage). À remplacer
-// par les vraies séances avant d'annoncer l'URL publiquement.
+// Le 26 septembre vient du post Instagram de l'équipe (date, horaire, lieu,
+// livre, mention). Les trois autres séances sont inventées (`demo: true`) :
+// à remplacer par les vraies avant d'annoncer l'URL.
 //
 // Pour ajouter une séance : copier un bloc, changer le slug (il devient l'URL
 // /evenements/<slug>). Les dates sont en heure de Paris, sans fuseau.
 // Pas de `ticket_url` = pas de bouton d'inscription sur la page.
+// Le livre de la séance se déclare dans content/resources.ts (`event_slug`).
+// Textes provisoires : préfixe "[BROUILLON] ", voir content/textes.ts.
 
 export const events: Event[] = [
   {
     slug: "cafe-26-septembre",
-    title: "Café BOOKÉ·ES — première rencontre",
+    title: "[BROUILLON] Premier café BOOKÉ·ES",
     type: "book_club",
-    question: "Peut-on encore débattre ?",
     description:
-      "Le premier café BOOKÉ·ES. On se retrouve en petit groupe autour d'une " +
-      "grande question, sans avoir besoin d'avoir tout lu ni d'avoir un avis " +
-      "tranché. Un tour de table, une discussion ouverte, et beaucoup de café.",
-    // TODO horaires à confirmer
-    start_date: "2026-09-26T19:00",
-    end_date: "2026-09-26T21:00",
+      "[BROUILLON] Le premier café BOOKÉ·ES, en petit groupe, autour de « Comment tout " +
+      "peut s'effondrer ». Pas besoin d'avoir tout lu ni d'avoir un avis tranché : un " +
+      "tour de table, une discussion ouverte, et du café.",
+    start_date: "2026-09-26T11:00",
+    end_date: "2026-09-26T13:00",
     venue_name: "Le Coucou",
-    address: "Adresse à confirmer",
+    address: "183 rue des Pyrénées, 75020 Paris",
+    note: "Première édition gratuite",
+    image: "/evenements/cafe-26-septembre.png",
   },
   {
     slug: "tiktok-democratie",
+    demo: true,
     title: "TikTok est-il encore compatible avec la démocratie ?",
     type: "rencontre",
-    question: "TikTok est-il encore compatible avec la démocratie ?",
     description:
       "Algorithmes de recommandation, viralité, jeunesse politisée sur les " +
       "réseaux : une soirée pour comprendre comment TikTok façonne le débat " +
@@ -54,9 +56,9 @@ export const events: Event[] = [
   },
   {
     slug: "a-quoi-sert-le-travail",
+    demo: true,
     title: "À quoi sert encore le travail ?",
     type: "book_club",
-    question: "À quoi sert encore le travail ?",
     description:
       "Sens au travail, quiet quitting, semaine de 4 jours, revenu universel : " +
       "le travail occupe une place centrale dans nos vies, mais on n'est plus " +
@@ -66,13 +68,12 @@ export const events: Event[] = [
     end_date: "2026-11-05T21:00",
     venue_name: "Le Chantier",
     address: "8 rue du Chai des Farines, Bordeaux",
-    resource_title: "Bullshit Jobs — David Graeber",
   },
   {
     slug: "qui-decide-de-nos-frontieres",
+    demo: true,
     title: "Qui décide de nos frontières ?",
     type: "book_club",
-    question: "Qui décide de nos frontières ?",
     description:
       "Migrations, asile, politiques européennes : un sujet chargé, qu'on " +
       "essaie d'aborder avec curiosité plutôt qu'avec des slogans. On part " +
@@ -81,6 +82,5 @@ export const events: Event[] = [
     end_date: "2026-08-05T21:00",
     venue_name: "Le Court Bouillon",
     address: "6 rue des Capucins, Lyon",
-    resource_title: "Podcast « Injustices » — épisode sur l'asile en France",
   },
 ];

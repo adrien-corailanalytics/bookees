@@ -1,0 +1,6 @@
+#!/bin/sh
+# Refuse le commit si types, lint ou tests échouent (activé par `npm install`,
+# via le script `prepare`). Le build complet tourne en CI.
+# ponytail: vérifie l'arbre de travail, pas seulement ce qui est indexé — un
+# commit partiel peut passer ici et casser en CI.
+npm run --silent check

@@ -7,101 +7,112 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-cream text-espresso font-sans;
+    @apply bg-white font-sans text-[1.0625rem] leading-relaxed text-encre antialiased;
+    /* BBB Poppins TN remplace les formes inclusives (« invité·es », « BOOKÉ·ES »)
+       par des glyphes fusionnés, via ses ligatures. Choix du 23/09 : garder
+       le point médian visible, comme sur le logo. */
+    font-feature-settings: "liga" 0, "rlig" 0;
   }
-  h1, h2, h3, h4 {
-    @apply font-serif;
-    /* Fraunces en version "soft" et légèrement "wonky" : plus chaleureux et
-       fait main qu'une serif éditoriale au carré, sans tomber dans l'italique
-       systématique. */
-    font-variation-settings: "SOFT" 60, "WONK" 1;
+  h1,
+  h2 {
+    @apply font-titre font-normal leading-[1.1];
   }
-  a {
-    @apply transition-colors duration-200;
+  ::selection {
+    @apply bg-rose;
   }
   :focus-visible {
-    outline: 2px solid #B23A26;
+    outline: 2px solid theme(colors.encre);
     outline-offset: 3px;
-    border-radius: 2px;
   }
 }
 
 @layer components {
-  .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brick px-6 py-3 text-sm font-semibold text-cream shadow-sm transition-all duration-200 hover:bg-bordeaux hover:-translate-y-0.5 hover:shadow-cardHover active:translate-y-0;
+  /* Échelle typographique de la planche, ramenée à l'écran. */
+  .titre-1 {
+    @apply font-titre text-4xl sm:text-5xl;
   }
-  .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-espresso/25 bg-transparent px-6 py-3 text-sm font-semibold text-espresso transition-all duration-200 hover:border-espresso hover:-translate-y-0.5 active:translate-y-0;
+  .titre-2 {
+    @apply font-titre text-3xl sm:text-4xl;
   }
-  .card {
-    @apply rounded-card bg-paper shadow-card transition-all duration-300 hover:shadow-cardHover hover:-translate-y-1;
+  .titre-3 {
+    @apply text-xl uppercase tracking-wide sm:text-2xl;
+  }
+  .sous-titre {
+    @apply text-lg leading-relaxed sm:text-xl;
+  }
+  .legende {
+    @apply text-sm text-gris;
+  }
+  /* Les intitulés de la fiche de bibliothèque : LIEU, DATE, TITRE/AUTEUR·ICE. */
+  .etiquette {
+    @apply text-xs font-semibold uppercase tracking-[0.14em];
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-encre bg-encre px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-vert hover:text-encre;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-encre bg-white px-6 py-3 text-sm font-semibold text-encre transition-colors duration-200 hover:bg-jaune;
+  }
+  .fiche {
+    @apply border border-encre;
   }
   .tag {
-    @apply inline-flex items-center gap-1 rounded-full bg-espresso/5 px-3 py-1 text-xs font-medium uppercase tracking-wide text-espresso/70;
+    @apply inline-flex items-center rounded-full border border-encre px-3 py-0.5 text-xs font-semibold uppercase tracking-wider;
+  }
+  .lien {
+    @apply underline decoration-1 underline-offset-4 hover:decoration-2;
   }
 
-  /* ---------- Touches "gamifiées" années 2000 (style Habbo) ---------- */
-  /* Pastille à bordure épaisse et ombre portée dure, sans flou : le réflexe
-     visuel des badges de statut dans les jeux/forums du début des années 2000. */
-  .pixel-badge {
-    @apply inline-flex items-center gap-1 rounded px-2.5 py-1 text-[0.7rem] font-bold uppercase tracking-wide;
-    background: var(--pixel-bg, theme(colors.mustard));
-    color: var(--pixel-text, theme(colors.espresso));
-    border: 2px solid theme(colors.espresso);
-    box-shadow: 2px 2px 0 theme(colors.espresso);
+  /* ---------- Contenus provisoires ----------
+     .brouillon : texte rédigé par un agent, pas encore choisi par l'équipe
+     (préfixe "[BROUILLON] " dans content/textes.ts, voir components/T.tsx).
+     .demo : événement, lieu ou ressource inventé (`demo: true`). */
+  .brouillon {
+    background: rgb(232 89 12 / 0.1);
+    text-decoration: underline dashed theme(colors.brouillon);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    cursor: help;
   }
-
-  /* Bouton "arcade" : relief dur façon Habbo/Neopets, s'enfonce au clic. */
-  .btn-arcade {
-    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-cream transition-transform duration-100;
-    background: var(--arcade-bg, theme(colors.brick));
-    border: 2px solid theme(colors.espresso);
-    box-shadow: 3px 3px 0 theme(colors.espresso);
+  .demo {
+    position: relative;
+    outline: 2px dashed theme(colors.brouillon);
+    outline-offset: 3px;
   }
-  .btn-arcade:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 theme(colors.espresso);
+  .demo::after {
+    content: "fictif";
+    @apply absolute -top-2.5 right-3 rounded-full bg-brouillon px-2 text-[0.65rem] font-semibold uppercase leading-5 tracking-wider text-white;
   }
-  .btn-arcade:active {
-    transform: translate(3px, 3px);
-    box-shadow: 0 0 0 theme(colors.espresso);
+  .sans-brouillon .brouillon {
+    background: none;
+    text-decoration: none;
+    cursor: auto;
   }
-  .btn-arcade:disabled {
-    @apply cursor-not-allowed opacity-60;
-    transform: none;
+  .sans-brouillon .demo {
+    outline: none;
   }
-
-  /* Barre de capacité façon barre de vie/XP : segments francs, pas de dégradé. */
-  .xp-bar {
-    @apply h-4 w-full overflow-hidden rounded-sm;
-    background: repeating-linear-gradient(
-      90deg,
-      theme(colors.espresso / 12%),
-      theme(colors.espresso / 12%) 9px,
-      theme(colors.espresso / 5%) 9px,
-      theme(colors.espresso / 5%) 10px
-    );
-    border: 2px solid theme(colors.espresso);
-  }
-  .xp-bar-fill {
-    @apply h-full transition-all duration-500;
-    background: repeating-linear-gradient(
-      90deg,
-      var(--xp-color, theme(colors.pine)),
-      var(--xp-color, theme(colors.pine)) 9px,
-      color-mix(in srgb, var(--xp-color, theme(colors.pine)) 80%, black) 9px,
-      color-mix(in srgb, var(--xp-color, theme(colors.pine)) 80%, black) 10px
-    );
+  .sans-brouillon .demo::after {
+    display: none;
   }
 }
 
-/* Micro-animation au scroll : révélation discrète */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+/* ---------- Carte (Leaflet) ---------- */
+/* Fond de plan en niveaux de gris : les pins pastel ressortent, et la carte
+   reprend le noir et blanc du reste du site. */
+.carte .leaflet-tile-pane {
+  filter: grayscale(1) contrast(1.05) brightness(1.02);
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.carte .leaflet-popup-content-wrapper {
+  border: 1px solid theme(colors.encre);
+  border-radius: 0;
+  box-shadow: none;
+}
+.carte .leaflet-popup-tip {
+  box-shadow: none;
+}
+.carte .leaflet-container {
+  font-family: inherit;
 }

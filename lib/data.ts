@@ -42,10 +42,6 @@ export function getPastEvents(): Event[] {
     .slice(0, 12);
 }
 
-export function getNextEvent(): Event | null {
-  return getUpcomingEvents()[0] ?? null;
-}
-
 export function getEventBySlug(slug: string): Event | null {
   return events.find((e) => e.slug === slug) ?? null;
 }
@@ -56,6 +52,14 @@ export function getResources(): Resource[] {
 
 export function getVenues(): Venue[] {
   return venues;
+}
+
+export function getResourcesForEvent(slug: string): Resource[] {
+  return resources.filter((r) => r.event_slug === slug);
+}
+
+export function getVenueByName(name: string): Venue | null {
+  return venues.find((v) => v.name === name) ?? null;
 }
 
 export function getEventTitle(slug: string | undefined): string | null {

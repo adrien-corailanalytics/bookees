@@ -33,17 +33,24 @@ export function formatDateShort(dateStr: string): string {
   }).format(d);
 }
 
-export function formatTime(dateStr: string): string {
-  const d = parseNaive(dateStr);
-  return new Intl.DateTimeFormat("fr-FR", {
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "UTC",
-  }).format(d);
+// Formats de la fiche de bibliothèque (post Instagram) : "SEPT", "26/09", "11h – 13h".
+export function formatMonthTicket(dateStr: string): string {
+  const month = new Intl.DateTimeFormat("fr-FR", { month: "short", timeZone: "UTC" });
+  return month.format(parseNaive(dateStr)).replace(".", "").toUpperCase();
 }
 
-export function formatTimeRange(startStr: string, endStr: string): string {
-  return `${formatTime(startStr)} – ${formatTime(endStr)}`;
+export function formatDayMonth(dateStr: string): string {
+  const [, month, day] = dateStr.slice(0, 10).split("-");
+  return `${day}/${month}`;
+}
+
+export function formatHour(dateStr: string): string {
+  const [hour, minute] = dateStr.slice(11, 16).split(":");
+  return `${Number(hour)}h${minute === "00" ? "" : minute}`;
+}
+
+export function formatHourRange(startStr: string, endStr: string): string {
+  return `${formatHour(startStr)} – ${formatHour(endStr)}`;
 }
 
 // Convertit une date naive "heure de Paris" en Date UTC réelle, pour générer

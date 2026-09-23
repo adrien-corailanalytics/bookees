@@ -4,63 +4,44 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { Venue } from "@/lib/types";
+import { textes } from "@/content/textes";
+import T from "./T";
 
-// Icône de pin "fait main" plutôt que l'icône par défaut de Leaflet (dont les
-// fichiers image ne se résolvent pas correctement avec le bundler de Next.js
-// — un problème classique de react-leaflet). divIcon nous permet en plus de
-// reprendre directement les couleurs de la marque façon Mapstr.
-const pinIcon = L.divIcon({
-  className: "",
-  html: `
-    <div style="
-      width:30px;height:30px;border-radius:50% 50% 50% 0;
-      background:#B23A26;border:2px solid #2E211A;
-      transform:rotate(-45deg);
-      box-shadow:2px 2px 0 rgba(46,33,26,0.3);
-      display:flex;align-items:center;justify-content:center;
-    ">
-      <span style="transform:rotate(45deg);font-size:14px;">☕</span>
-    </div>`,
-  iconSize: [30, 30],
-  iconAnchor: [15, 30],
-  popupAnchor: [0, -28],
+// Le monogramme BK en pin, à la place de l'icône Leaflet par défaut (dont les
+// images ne se résolvent pas avec le bundler de Next.js).
+const pinIcon = L.icon({
+  iconUrl: "/brand/bk-vert.svg",
+  iconSize: [38, 38],
+  iconAnchor: [19, 19],
+  popupAnchor: [0, -18],
 });
 
 export default function VenueMap({ venues }: { venues: Venue[] }) {
-  const located = venues.filter((v) => v.lat != null && v.lng != null);
-  const center: [number, number] =
-    located.length > 0
-      ? [
-          located.reduce((s, v) => s + (v.lat ?? 0), 0) / located.length,
-          located.reduce((s, v) => s + (v.lng ?? 0), 0) / located.length,
-        ]
-      : [46.6, 2.3]; // Centre approximatif de la France, si aucun lieu géolocalisé.
+  const positions = venues.map((v) => [v.lat, v.lng] as [number, number]);
+  const view =
+    positions.length > 1
+      ? { bounds: positions, boundsOptions: { padding: [48, 48] as [number, number] } }
+      : { center: positions[0] ?? ([46.6, 2.3] as [number, number]), zoom: positions.length ? 15 : 5 };
 
   return (
-    <MapContainer
-      center={center}
-      zoom={located.length > 1 ? 5 : 12}
-      scrollWheelZoom={false}
-      style={{ height: "100%", width: "100%" }}
-    >
+    <MapContainer {...view} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {located.map((venue) => (
-        <Marker key={venue.id} position={[venue.lat as number, venue.lng as number]} icon={pinIcon}>
+      {venues.map((venue) => (
+        <Marker key={venue.id} position={[venue.lat, venue.lng]} icon={pinIcon}>
           <Popup>
-            <div style={{ fontFamily: "Inter, sans-serif", minWidth: 180 }}>
-              <p style={{ fontFamily: "Fraunces, serif", fontWeight: 600, fontSize: "1rem", margin: 0 }}>
-                {venue.name}
-              </p>
-              <p style={{ fontSize: "0.8rem", color: "#6b5c4d", margin: "2px 0 6px" }}>
+            <div className="min-w-[180px] text-encre">
+              <p className="!m-0 font-titre text-lg">{venue.name}</p>
+              <p className="!mb-1.5 !mt-0.5 text-xs text-gris">
                 {venue.address}
                 {venue.city ? `, ${venue.city}` : ""}
               </p>
+              {venue.demo && <p className="!my-1 text-xs font-semibold uppercase text-brouillon">fictif</p>}
               {venue.description && (
-                <p style={{ fontSize: "0.82rem", lineHeight: 1.4, margin: "0 0 6px" }}>
-                  {venue.description}
+                <p className="!my-0 !mb-1.5 text-[0.82rem] leading-snug">
+                  <T>{venue.description}</T>
                 </p>
               )}
               {venue.instagram_url && (
@@ -68,9 +49,9 @@ export default function VenueMap({ venues }: { venues: Venue[] }) {
                   href={venue.instagram_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontSize: "0.8rem", fontWeight: 600, color: "#B23A26" }}
+                  className="text-xs font-semibold !text-encre underline"
                 >
-                  Voir le lieu sur Instagram →
+                  {textes.carte.instagram} →
                 </a>
               )}
             </div>

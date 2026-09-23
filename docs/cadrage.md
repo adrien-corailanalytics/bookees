@@ -1,7 +1,8 @@
 # BOOKÉ·ES — cadrage
 
-Ce qui a été décidé, ce qui est contraint, ce qui reste ouvert. À lire avant de
-concevoir quoi que ce soit sur ce projet. Dernière révision : 13 septembre 2026.
+Ce qui a été décidé et ce qui est contraint. À lire avant de concevoir quoi que
+ce soit sur ce projet. Ce qui reste ouvert, et l'avancement, sont dans
+[etat-du-projet.md](etat-du-projet.md). Dernière révision : 23 septembre 2026.
 
 ## Le projet
 
@@ -75,7 +76,7 @@ propre — c'est la raison d'être du site face à une simple page Notion.
 
 ## Intention de design
 
-Résumée ici, détaillée dans [DESIGN.md](DESIGN.md) :
+Résumée ici, détaillée dans [design.md](design.md) :
 
 - **Accueil sobre.** Textes percutants, information trouvable sans effort.
   Aucune gamification.
@@ -93,22 +94,5 @@ Résumée ici, détaillée dans [DESIGN.md](DESIGN.md) :
 ## Historique du nom
 
 Le projet s'est appelé **Agorabica**. Il s'appelle maintenant **BOOKÉ·ES** —
-deux O, le logotype les fait se chevaucher. Le repository, lui, s'appelle encore
-`agorabica` ; le code, non.
-
-## Prochaine échéance
-
-**26 septembre 2026** : premier café. C'est un crash test, sans inscription. Le
-site n'a pas besoin d'être parfait à cette date, mais s'il est en ligne il doit
-porter le bon nom et du vrai contenu.
-
-## Ce qui reste ouvert
-
-| Sujet | État | Pour trancher |
-|---|---|---|
-| Nom de domaine | pas acheté | ~12 €/an, 10 minutes |
-| Billetterie | aucun compte créé | créer un événement gratuit sur HelloAsso pour le 26 et voir si le flux convient |
-| Le Coucou | lieu cité, adresse inconnue | demander l'adresse, relever lat/lng sur Google Maps |
-| Contenu réel | les fichiers `content/` contiennent encore de la démo | remplacer avant d'annoncer l'URL |
-| Logos | fournis en `.jpg` sur fond quadrillé | demander des SVG à l'équipe design |
-| Ressourcerie immersive | conçue, pas construite | c'est le seul écran coûteux du site — environ une semaine |
+deux O, le logotype les fait se chevaucher. Il ne reste plus de trace de
+l'ancien nom dans le code ni dans le dépôt (`bookees`).

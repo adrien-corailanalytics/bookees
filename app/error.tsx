@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
+import T from "@/components/T";
+import { textes } from "@/content/textes";
+
+const t = textes.erreur;
 
 export default function ErrorBoundary({
   error,
@@ -15,15 +19,12 @@ export default function ErrorBoundary({
 
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-5 text-center">
-      <p className="font-serif text-5xl text-brick">☕</p>
-      <h1 className="mt-4 font-serif text-2xl text-espresso">
-        Un souci de connexion, pas de vous.
+      <h1 className="titre-2">
+        <T>{t.titre}</T>
       </h1>
-      <p className="mt-2 text-espresso/70">
-        Le site rencontre un problème temporaire. Réessayez dans un instant.
-      </p>
-      <button onClick={() => reset()} className="btn-primary mt-8">
-        Réessayer
+      <p className="mt-3">{t.texte}</p>
+      <button onClick={() => reset()} className="btn mt-8">
+        {t.bouton}
       </button>
     </div>
   );

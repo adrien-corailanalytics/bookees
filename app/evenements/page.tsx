@@ -2,20 +2,25 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getUpcomingEvents, getPastEvents } from "@/lib/data";
 import EventCard from "@/components/EventCard";
-import { cn } from "@/lib/utils";
-import type { EventType } from "@/lib/types";
-import { formatDateShort } from "@/lib/utils";
+import T from "@/components/T";
+import { cn, formatDateShort } from "@/lib/utils";
+import { EVENT_TYPE_BG, type EventType } from "@/lib/types";
+import { textes } from "@/content/textes";
+
+const t = textes.evenements;
 
 export const metadata: Metadata = {
-  title: "Événements",
-  description: "Tous les book clubs, rencontres et événements communautaires BOOKÉ·ES à venir.",
+  title: t.titre,
+  description: t.metaDescription,
 };
 
 const FILTERS: { value: EventType | "all"; label: string; active: string }[] = [
-  { value: "all", label: "Tous", active: "bg-espresso text-cream" },
-  { value: "book_club", label: "📚 Book Clubs", active: "bg-pine text-cream" },
-  { value: "rencontre", label: "🎙 Rencontres", active: "bg-brick text-cream" },
-  { value: "communaute", label: "☕ Communauté", active: "bg-mustard text-espresso" },
+  { value: "all", label: t.tous, active: "bg-encre text-white" },
+  ...(Object.keys(EVENT_TYPE_BG) as EventType[]).map((type) => ({
+    value: type,
+    label: textes.types.evenement[type],
+    active: EVENT_TYPE_BG[type],
+  })),
 ];
 
 export default async function EvenementsPage({
@@ -32,31 +37,29 @@ export default async function EvenementsPage({
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-16">
-      <h1 className="font-serif text-4xl text-espresso sm:text-5xl">Événements</h1>
-      <p className="mt-3 max-w-xl text-espresso/70">
-        Book clubs, rencontres et vie de communauté — tout ce qui se prépare chez BOOKÉ·ES.
+      <h1 className="titre-1">{t.titre}</h1>
+      <p className="sous-titre mt-4 max-w-xl">
+        <T>{t.intro}</T>
       </p>
 
-      <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Filtrer par type">
+      <nav className="mt-8 flex flex-wrap gap-2" aria-label={t.filtresLabel}>
         {FILTERS.map((f) => (
           <Link
             key={f.value}
             href={f.value === "all" ? "/evenements" : `/evenements?type=${f.value}`}
             className={cn(
-              "rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 hover:-translate-y-0.5",
-              activeFilter === f.value ? f.active : "bg-paper text-espresso/70 hover:bg-espresso/10"
+              "tag !px-4 !py-1.5 transition-colors",
+              activeFilter === f.value ? f.active : "bg-white hover:bg-jaune"
             )}
             aria-current={activeFilter === f.value ? "true" : undefined}
           >
             {f.label}
           </Link>
         ))}
-      </div>
+      </nav>
 
       {filtered.length === 0 ? (
-        <p className="mt-16 text-espresso/60">
-          Aucun événement à venir dans cette catégorie pour le moment.
-        </p>
+        <p className="legende mt-16">{t.vide}</p>
       ) : (
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((event) => (
@@ -66,15 +69,15 @@ export default async function EvenementsPage({
       )}
 
       {past.length > 0 && (
-        <details className="mt-20">
-          <summary className="cursor-pointer text-sm font-semibold uppercase tracking-wide text-espresso/50">
-            Événements passés
-          </summary>
-          <ul className="mt-6 divide-y divide-espresso/10">
+        <details className="mt-20 border-t border-encre pt-6">
+          <summary className="etiquette cursor-pointer">{t.passes}</summary>
+          <ul className="mt-6 divide-y divide-encre/20">
             {past.map((event) => (
-              <li key={event.slug} className="flex items-center justify-between py-3 text-sm">
-                <span className="text-espresso/70">{event.title}</span>
-                <span className="text-espresso/40">{formatDateShort(event.start_date)}</span>
+              <li key={event.slug} className={cn("flex items-center justify-between gap-4 py-3 text-sm", event.demo && "demo")}>
+                <Link href={`/evenements/${event.slug}`} className="lien">
+                  <T>{event.title}</T>
+                </Link>
+                <span className="legende">{formatDateShort(event.start_date)}</span>
               </li>
             ))}
           </ul>
