@@ -12,12 +12,9 @@ design dans [design.md](design.md).
 - **Le site** : une vitrine en cinq rubriques (accueil, événements et fiche de
   chaque séance, Ressourcerie, Carte, Le projet) plus la page Confidentialité.
   Il affiche, il ne stocke rien : ni compte, ni formulaire, ni base de données.
-- **La nouvelle version** (charte du kit design, vraies infos du 26/09, textes
-  provisoires signalés) est prête sur la branche `charte-kit-design`, mais
-  **pas encore en ligne**.
-- **En ligne aujourd'hui** : <https://bookees-tp8n.vercel.app>, l'ancienne
-  version. Elle affiche **une heure et une adresse fausses pour le 26/09**
-  (19h et « Adresse à confirmer »).
+- **En ligne** : <https://bookees-mu.vercel.app>, à jour depuis le 23/09
+  (charte du kit design, vraies infos du 26/09, textes provisoires signalés).
+  Un seul projet Vercel, qui met en ligne chaque fusion dans `main`.
 - **Prochaine échéance** : **samedi 26 septembre 2026, 11h–13h**, premier café
   au Coucou (183 rue des Pyrénées, Paris 20e) autour de *Comment tout peut
   s'effondrer* (Pablo Servigne et Raphaël Stevens). Première édition
@@ -25,15 +22,13 @@ design dans [design.md](design.md).
 
 ## Urgent, avant le 26/09
 
-1. **Mettre en ligne la nouvelle version**, pour corriger l'heure et l'adresse.
-   Relire l'aperçu Vercel de la PR, puis la fusionner (Adrien).
-2. **Choisir ce que voient les visiteurs d'ici là.** En l'état, les textes
+1. **Choisir ce que voient les visiteurs d'ici là.** En l'état, les textes
    provisoires s'affichent surlignés en orange et les contenus inventés sont
    encadrés « fictif ». C'est voulu pour l'équipe, mais c'est aussi ce que
    verra quelqu'un à qui on donne l'adresse au café. Au minimum : l'accroche
    de l'accueil et la page de la séance du 26/09 (voir « À décider »).
-3. **Adresse de contact** : `bonjour@bookees.fr` n'existe pas (le domaine n'est
-   pas acheté). Le bouton « Nous écrire » envoie donc dans le vide. Mettre une
+2. **Adresse de contact** : `bonjour@bookees.fr` n'existe pas (le domaine n'est
+   pas encore acheté). Le bouton « Nous écrire » envoie donc dans le vide. Mettre une
    adresse qui fonctionne dans `content/site.ts`, ou acheter le domaine.
 
 ## Ce qui est fait
@@ -57,25 +52,27 @@ design dans [design.md](design.md).
 | 1 | **Textes du site** | Les 29 textes `[BROUILLON]` : accroche de l'accueil, les trois étapes (comprendre, discuter, agir), les trois formats, le bloc « Rejoindre », les trois paragraphes de « Le projet », les intros de page, la Confidentialité, les messages d'erreur | Commencer par l'accueil et la séance du 26/09 ; le reste peut attendre |
 | 2 | **Séance du 26/09** | Titre de la page, texte de présentation, et s'il y a une « grande question » | À écrire avant de partager l'adresse du site |
 | 3 | **Contenus inventés** | 3 séances fictives (dont des dates à Marseille et Bordeaux), 6 ressources, 3 lieux : les retirer ou les garder comme démonstration | Retirer les séances fictives avant de montrer le site à l'extérieur : elles annoncent de fausses dates |
-| 4 | **Nom de domaine et email** | Quel domaine, quelle adresse de contact. Au 23/09 : `bookees.fr`, `bookees.club` et `bookees.eu` sont libres ; `bookees.com` est à vendre (Afternic) | Prendre `bookees.fr` (~10 €/an) et l'adresse `bonjour@bookees.fr` qui va avec ; l'adresse du site devient `bookees.fr` |
+| 4 | **Nom de domaine et email** | `bookees.fr` ou `bookees.club` (choix restreint le 23/09 ; les deux étaient libres, `bookees.com` est à vendre). Avec le domaine vient l'adresse de contact | `bookees.fr` : plus familier pour un public français ; ~10 €/an |
 | 5 | **Billetterie** | HelloAsso, Billetweb… pour les séances payantes à venir | Tester avec un événement gratuit sur HelloAsso |
 | 6 | **WhatsApp sur le site** | Mettre un lien d'invitation public ? N'importe qui pourrait rejoindre le groupe. Sans lien, le bouton reste caché | À décider selon la taille voulue du groupe |
 | 7 | **Instagram** | Le kit contient des avatars : le compte existe-t-il ? Si oui, donner l'adresse | Lien affiché dans le pied de page dès qu'il est renseigné |
-| 8 | **Deux projets Vercel** | Deux projets déploient le même dépôt (`bookees-tp8n`, public, et un second, protégé par mot de passe) | En garder un seul |
-| 9 | **Dépôt public et polices** | Le dépôt GitHub est public, donc les fichiers de police aussi. BBB Poppins TN est sous licence libre ; Veteran Typewriter est « gratuite, revente interdite », sans mention claire de redistribution | Rendre le dépôt privé, ou vérifier la licence |
-| 10 | **Ressourcerie immersive** | La construire (porte, étagère, emprunt ; environ une semaine) ou garder la grille de fiches | À passer au crible (skill `grill-spec`) avant de s'y engager |
-| 11 | **Le Comptoir** | Idée gelée : une page « entre deux rencontres » (question du comptoir, « vous le saviez ? », initiatives des membres) | À rouvrir seulement si WhatsApp ne suffit plus. Ancien code : `git show 8ca1c7e:app/le-comptoir/page.tsx` |
+| 8 | **Dépôt public ou privé** | Le dépôt GitHub est public : le code, la doc, l'historique et les fichiers de police sont visibles de tous. BBB Poppins TN est sous licence libre ; Veteran Typewriter est « gratuite, revente interdite », sans mention claire de redistribution | Passe dédiée prévue plus tard (demande d'Adrien, 23/09) : ce qui est exposé, les licences, public ou privé |
+| 9 | **Ressourcerie immersive** | La construire (porte, étagère, emprunt ; environ une semaine) ou garder la grille de fiches | À passer au crible (skill `grill-spec`) avant de s'y engager |
+| 10 | **Le Comptoir** | Idée gelée : une page « entre deux rencontres » (question du comptoir, « vous le saviez ? », initiatives des membres) | À rouvrir seulement si WhatsApp ne suffit plus. Ancien code : `git show 8ca1c7e:app/le-comptoir/page.tsx` |
 
 ## À faire
 
-- [ ] Relire et fusionner la PR `charte-kit-design` (voir « Urgent »).
 - [ ] Après le 26/09 : ajouter à la Ressourcerie ce qui a été cité pendant la
       séance (`content/resources.ts`, relié par `event_slug`).
-- [ ] Révoquer les anciennes clés Supabase et Resend : elles sont encore dans
-      `.env.local` sur le Mac d'Adrien, alors que le site ne s'en sert plus.
-      Supprimer ensuite ces lignes (seule `NEXT_PUBLIC_SITE_URL` sert encore).
+- [ ] Retirer `EMAIL_FROM` (vestige d'Agorabica) de `.env.local` ; seule
+      `NEXT_PUBLIC_SITE_URL` sert encore. Les clés Supabase et Resend en sont
+      déjà retirées, et `.env.local` n'a jamais été commité : elles n'ont pas
+      fuité par le dépôt. Si les comptes Supabase et Resend existent encore,
+      les fermer.
+- [ ] Plus tard : la passe « dépôt public ou privé » (À décider, n° 8).
 - [ ] Protéger `main` sur GitHub : fusion par PR uniquement, CI obligatoire,
-      suppression automatique des branches fusionnées.
+      suppression automatique des branches fusionnées (`charte-kit-design`,
+      fusionnée, est encore sur GitHub).
 - [ ] Quand le domaine existe : le renseigner dans `content/site.ts` et dans
       la variable `NEXT_PUBLIC_SITE_URL` sur Vercel (jamais vide).
 - [ ] Ajouter un visuel (photo, logo) à chaque lieu de la carte.
@@ -107,3 +104,5 @@ design dans [design.md](design.md).
   médian reste visible (« BOOKÉ·ES », « invité·es »). Les alertes de sécurité
   macOS venaient du dossier reçu par AirDrop (fichiers en quarantaine) :
   dépendances réinstallées, Turbopack refonctionne sur le Mac d'Adrien.
+  PR #1 fusionnée et mise en ligne sur bookees-mu.vercel.app ; le projet
+  Vercel en double est supprimé. Domaine : `bookees.fr` ou `bookees.club`.
