@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const SHELF_ORDER: ResourceType[] = ["book", "podcast", "documentary", "article", "other"];
 
 // ponytail: fiches rangées par rayon. La version immersive (porte, meuble,
-// emprunt — DESIGN.md) reste à construire ; cette grille restera sa vue liste.
+// emprunt — docs/design.md) reste à construire ; cette grille restera sa vue liste.
 export default function RessourceriePage() {
   const resources = getResources();
   const shelves = SHELF_ORDER.map((type) => ({

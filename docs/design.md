@@ -5,14 +5,14 @@ projet comprenne le « pourquoi » sans relire l'historique.
 
 ## Source de vérité : le kit de l'équipe design (23/09/2026)
 
-Le dossier Drive « Booké·es » (Gabrielle Pelletier) fixe l'identité. Il
+Le dossier Drive « Booké·es » (Gabrielle, équipe design) fixe l'identité. Il
 **remplace** la direction « café » explorée avant (crème, terracotta, Space
 Grotesk, texture quadrillée), abandonnée. Contenu du kit et où il vit dans le
 dépôt :
 
 | Élément du kit | Dans le dépôt |
 |---|---|
-| `ELEMENTS.png` (planche : typo, couleurs, logos) | référence, non versionnée |
+| `ELEMENTS.png` (planche : typo, couleurs, logos) | `docs/charte/planche-elements.png` |
 | Logo seul / logo + « Book club conscient » (SVG) | `public/brand/bookees.svg`, `public/brand/bookees-slogan.svg` |
 | Monogramme BK, 5 versions (SVG) | `public/brand/bk.svg`, `bk-vert.svg`, `bk-rose.svg`, `bk-bleu.svg`, `bk-jaune.svg` — `bk-vert` sert aussi de favicon (`app/icon.svg`) et de pin sur la carte |
 | Polices Veteran Typewriter, BBB Poppins TN | `app/fonts/` (woff2), chargées par `next/font/local` dans `app/layout.tsx` |
@@ -120,8 +120,8 @@ passer pour un texte validé.
 
 ## Ressourcerie immersive — à construire
 
-Concept validé avant le kit (maquette `design/bookees-preview.html`, **ancienne
-palette**, à ne reprendre que pour les mécaniques) :
+Concept validé avant le kit (maquette `docs/archives/maquette-direction-cafe.html`,
+**ancienne palette**, à ne reprendre que pour les mécaniques) :
 
 1. **Porte d'entrée** : deux battants qui coulissent et révèlent la
    bibliothèque.
@@ -136,4 +136,4 @@ liste équivalente exigée par le contrat.
 ## Références
 
 - Maquette de l'ancienne direction (pour la Ressourcerie uniquement) :
-  [`design/bookees-preview.html`](design/bookees-preview.html)
+  [`archives/maquette-direction-cafe.html`](archives/maquette-direction-cafe.html)

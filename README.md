@@ -4,6 +4,8 @@ Site vitrine de BOOKÉ·ES — book club conscient. Les prochaines dates, la
 Ressourcerie (tout ce qui a été cité en séance), la carte des lieux, et de quoi
 comprendre le projet.
 
+**Où en est le projet, ce qui reste à décider : [docs/etat-du-projet.md](docs/etat-du-projet.md).**
+
 ## Ce que le site fait — et ne fait pas
 
 Il **affiche**. Il ne **stocke** rien.
@@ -32,7 +34,8 @@ sauf `NEXT_PUBLIC_SITE_URL` en production (liens absolus, OpenGraph, .ics).
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # vérifie types + build de production
+npm run check    # types + lint + tests (lancé aussi avant chaque commit)
+npm run build    # build de production
 ```
 
 > **Sur le Mac d'Adrien** : la politique de sécurité du système empêche le
@@ -70,17 +73,25 @@ sur le point, les deux nombres affichés en haut sont lat puis lng.
 ## Structure
 
 ```
-app/            pages (accueil, événements, ressourcerie, carte, à-propos…)
+app/            pages (accueil, événements, ressourcerie, carte, projet…)
+  fonts/        polices de la charte (Veteran Typewriter, BBB Poppins TN)
 components/     composants React
 content/        LE CONTENU — c'est ici qu'on édite
 lib/            types, sélecteurs sur le contenu, formatage de dates, .ics
-public/brand/   logos SVG fournis par l'équipe design (logotype, monogrammes BK)
-app/fonts/      polices de la charte (Veteran Typewriter, BBB Poppins TN)
-DESIGN.md       l'intention de design et les décisions prises
+public/         logos (brand/), logos des lieux (lieux/), visuels des séances
+tests/          garde-fous sur le contenu, les dates et le .ics
+docs/
+  etat-du-projet.md   où on en est, ce qui reste à décider
+  cadrage.md          les décisions et les contraintes
+  design.md           la charte et les composants
+  charte/             planche de référence du kit design
+  archives/           maquette de l'ancienne direction (café)
+CLAUDE.md       règles de travail pour Claude ; skills dans .claude/skills/
 ```
 
-## Reste à faire
+## Contribuer
 
-- Choisir les textes marqués `[BROUILLON]` et remplacer les contenus `demo: true`.
-- Acheter le nom de domaine et le renseigner dans `content/site.ts` + Vercel.
-- Construire la Ressourcerie immersive (voir `DESIGN.md`).
+Une branche par sujet, une PR, fusion par « Rebase and merge » : chaque commit
+arrive tel quel sur `main`, il doit donc passer `npm run check` et expliquer
+son pourquoi. La CI GitHub relance les vérifications et le build ; Vercel
+publie un aperçu de chaque PR et met en ligne `main`.

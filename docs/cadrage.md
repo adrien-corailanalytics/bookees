@@ -1,7 +1,8 @@
 # BOOKÉ·ES — cadrage
 
-Ce qui a été décidé, ce qui est contraint, ce qui reste ouvert. À lire avant de
-concevoir quoi que ce soit sur ce projet. Dernière révision : 23 septembre 2026.
+Ce qui a été décidé et ce qui est contraint. À lire avant de concevoir quoi que
+ce soit sur ce projet. Ce qui reste ouvert, et l'avancement, sont dans
+[etat-du-projet.md](etat-du-projet.md). Dernière révision : 23 septembre 2026.
 
 ## Le projet
 
@@ -75,7 +76,7 @@ propre — c'est la raison d'être du site face à une simple page Notion.
 
 ## Intention de design
 
-Résumée ici, détaillée dans [DESIGN.md](DESIGN.md) :
+Résumée ici, détaillée dans [design.md](design.md) :
 
 - **Accueil sobre.** Textes percutants, information trouvable sans effort.
   Aucune gamification.
@@ -95,22 +96,3 @@ Résumée ici, détaillée dans [DESIGN.md](DESIGN.md) :
 Le projet s'est appelé **Agorabica**. Il s'appelle maintenant **BOOKÉ·ES** —
 deux O, le logotype les fait se chevaucher. Il ne reste plus de trace de
 l'ancien nom dans le code ni dans le dépôt (`bookees`).
-
-## Prochaine échéance
-
-**26 septembre 2026** : premier café. C'est un crash test, sans inscription. Le
-site n'a pas besoin d'être parfait à cette date, mais s'il est en ligne il doit
-porter le bon nom et du vrai contenu.
-
-## Ce qui reste ouvert
-
-| Sujet | État | Pour trancher |
-|---|---|---|
-| Nom de domaine | pas acheté | ~12 €/an, 10 minutes |
-| Billetterie | aucun compte créé | créer un événement gratuit sur HelloAsso pour le 26 et voir si le flux convient |
-| Textes du site | tous rédigés par un agent, marqués `[BROUILLON]` dans `content/textes.ts` et surlignés sur le site | l'équipe choisit chaque texte et retire le préfixe |
-| Contenu réel | le 26/09 (Le Coucou, *Comment tout peut s'effondrer*) est réel ; le reste est marqué `demo: true`, affiché « fictif » | remplacer avant d'annoncer l'URL |
-| Séance du 26/09 | titre et description de la page provisoires ; pas de grande question | les écrire (`content/events.ts`) |
-| Nom en texte courant | la police BBB Poppins TN fusionne « É·E » dans « BOOKÉ·ES » (glyphe inclusif) | garder, ou demander le point médian visible comme sur le logo |
-| Ressourcerie immersive | conçue, pas construite | c'est le seul écran coûteux du site — environ une semaine |
-| Le Comptoir (idée, retirée du site) | page supprimée : contenu fictif, hors des 4 rôles du site | une page « entre deux rencontres » : question du comptoir, « vous le saviez ? », initiatives des membres. À rouvrir seulement si WhatsApp ne suffit plus ; ancien code : `git show 8ca1c7e:app/le-comptoir/page.tsx` |
