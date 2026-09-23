@@ -1,7 +1,7 @@
 # BOOKÉ·ES — cadrage
 
 Ce qui a été décidé, ce qui est contraint, ce qui reste ouvert. À lire avant de
-concevoir quoi que ce soit sur ce projet. Dernière révision : 13 septembre 2026.
+concevoir quoi que ce soit sur ce projet. Dernière révision : 23 septembre 2026.
 
 ## Le projet
 
@@ -93,8 +93,8 @@ Résumée ici, détaillée dans [DESIGN.md](DESIGN.md) :
 ## Historique du nom
 
 Le projet s'est appelé **Agorabica**. Il s'appelle maintenant **BOOKÉ·ES** —
-deux O, le logotype les fait se chevaucher. Le repository, lui, s'appelle encore
-`agorabica` ; le code, non.
+deux O, le logotype les fait se chevaucher. Il ne reste plus de trace de
+l'ancien nom dans le code ni dans le dépôt (`bookees`).
 
 ## Prochaine échéance
 
@@ -108,7 +108,9 @@ porter le bon nom et du vrai contenu.
 |---|---|---|
 | Nom de domaine | pas acheté | ~12 €/an, 10 minutes |
 | Billetterie | aucun compte créé | créer un événement gratuit sur HelloAsso pour le 26 et voir si le flux convient |
-| Le Coucou | lieu cité, adresse inconnue | demander l'adresse, relever lat/lng sur Google Maps |
-| Contenu réel | les fichiers `content/` contiennent encore de la démo | remplacer avant d'annoncer l'URL |
-| Logos | fournis en `.jpg` sur fond quadrillé | demander des SVG à l'équipe design |
+| Textes du site | tous rédigés par un agent, marqués `[BROUILLON]` dans `content/textes.ts` et surlignés sur le site | l'équipe choisit chaque texte et retire le préfixe |
+| Contenu réel | le 26/09 (Le Coucou, *Comment tout peut s'effondrer*) est réel ; le reste est marqué `demo: true`, affiché « fictif » | remplacer avant d'annoncer l'URL |
+| Séance du 26/09 | titre et description de la page provisoires ; pas de grande question | les écrire (`content/events.ts`) |
+| Nom en texte courant | la police BBB Poppins TN fusionne « É·E » dans « BOOKÉ·ES » (glyphe inclusif) | garder, ou demander le point médian visible comme sur le logo |
 | Ressourcerie immersive | conçue, pas construite | c'est le seul écran coûteux du site — environ une semaine |
+| Le Comptoir (idée, retirée du site) | page supprimée : contenu fictif, hors des 4 rôles du site | une page « entre deux rencontres » : question du comptoir, « vous le saviez ? », initiatives des membres. À rouvrir seulement si WhatsApp ne suffit plus ; ancien code : `git show 8ca1c7e:app/le-comptoir/page.tsx` |

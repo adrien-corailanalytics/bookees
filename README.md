@@ -43,11 +43,12 @@ npm run build    # vérifie types + build de production
 
 ## Modifier le contenu
 
-Tout est dans `content/` — quatre fichiers, commentés, sans SQL ni interface
+Tout est dans `content/` — cinq fichiers, commentés, sans SQL ni interface
 d'administration :
 
 | Fichier | Contenu |
 |---|---|
+| `content/textes.ts` | tous les textes des pages (accroches, paragraphes, menus, boutons) |
 | `content/events.ts` | les séances (à venir et passées) |
 | `content/resources.ts` | la Ressourcerie |
 | `content/venues.ts` | les lieux affichés sur la carte |
@@ -55,6 +56,13 @@ d'administration :
 
 Ajouter une ressource = copier un bloc, le remplir, commiter. Vercel redéploie
 tout seul. Le tri à venir / passé se fait sur les dates, il n'y a rien à cocher.
+
+**Textes provisoires.** Un texte qui commence par `[BROUILLON] ` a été rédigé par
+un agent, pas choisi par l'équipe : le site l'affiche surligné en orange, et une
+pastille en bas de page compte ce qui reste à choisir. Un événement, un lieu ou
+une ressource inventé porte `demo: true` et s'affiche encadré avec la mention
+« fictif ». Valider = retirer le préfixe ou le `demo: true`.
+`grep -rn "BROUILLON\|demo: true" content/` liste tout ce qui reste.
 
 Pour un lieu, il faut `lat` et `lng` : ouvrir le lieu sur Google Maps, clic droit
 sur le point, les deux nombres affichés en haut sont lat puis lng.
@@ -66,14 +74,13 @@ app/            pages (accueil, événements, ressourcerie, carte, à-propos…)
 components/     composants React
 content/        LE CONTENU — c'est ici qu'on édite
 lib/            types, sélecteurs sur le contenu, formatage de dates, .ics
-public/brand/   logo et logotype fournis par l'équipe design
+public/brand/   logos SVG fournis par l'équipe design (logotype, monogrammes BK)
+app/fonts/      polices de la charte (Veteran Typewriter, BBB Poppins TN)
 DESIGN.md       l'intention de design et les décisions prises
 ```
 
 ## Reste à faire
 
-- Remplacer le contenu de démonstration par les vraies séances et ressources
-  (les fichiers `content/` portent un bandeau ⚠️ en tête).
+- Choisir les textes marqués `[BROUILLON]` et remplacer les contenus `demo: true`.
 - Acheter le nom de domaine et le renseigner dans `content/site.ts` + Vercel.
-- Ajouter Le Coucou dans `content/venues.ts` (adresse + coordonnées).
-- Appliquer l'identité visuelle BOOKÉ·ES aux composants (voir `DESIGN.md`).
+- Construire la Ressourcerie immersive (voir `DESIGN.md`).

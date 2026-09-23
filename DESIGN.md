@@ -1,201 +1,139 @@
 # BOOKÉ·ES — Document de conception
 
-Ce document résume les décisions de design prises pendant le développement du
-site, pour que n'importe qui reprenant le projet comprenne le "pourquoi"
-sans avoir à relire tout l'historique de conversation.
+Ce document résume les décisions de design, pour que n'importe qui reprenant le
+projet comprenne le « pourquoi » sans relire l'historique.
 
-## Intention de design — le contrat (arbitré le 13/09/2026)
+## Source de vérité : le kit de l'équipe design (23/09/2026)
 
-Deux régimes distincts, ne pas les mélanger :
+Le dossier Drive « Booké·es » (Gabrielle Pelletier) fixe l'identité. Il
+**remplace** la direction « café » explorée avant (crème, terracotta, Space
+Grotesk, texture quadrillée), abandonnée. Contenu du kit et où il vit dans le
+dépôt :
 
-- **Accueil = sobre.** Aucune gamification. Les textes et les éléments
-  principaux sont percutants et clairs. On doit trouver l'information
-  cherchée sans effort : prochaines dates, ce qu'est BOOKÉ·ES, où ça se
-  passe. C'est la vitrine officielle publique.
-- **Onglets = immersion.** C'est là qu'on « entre dans un monde », et c'est
-  la plus-value du site par rapport à une page Notion.
-  - **Ressourcerie** : on entre dans une bibliothèque. Sensation de
-    déplacement dans un espace, référence assumée aux jeux à l'ancienne
-    (Habbo). Pas une simple grille de cartes.
-  - **Carte** : interactive, chaque lieu porte un visuel (photo, post
-    Instagram du lieu évoqué).
+| Élément du kit | Dans le dépôt |
+|---|---|
+| `ELEMENTS.png` (planche : typo, couleurs, logos) | référence, non versionnée |
+| Logo seul / logo + « Book club conscient » (SVG) | `public/brand/bookees.svg`, `public/brand/bookees-slogan.svg` |
+| Monogramme BK, 5 versions (SVG) | `public/brand/bk.svg`, `bk-vert.svg`, `bk-rose.svg`, `bk-bleu.svg`, `bk-jaune.svg` — `bk-vert` sert aussi de favicon (`app/icon.svg`) et de pin sur la carte |
+| Polices Veteran Typewriter, BBB Poppins TN | `app/fonts/` (woff2), chargées par `next/font/local` dans `app/layout.tsx` |
+| Post Instagram du 26/09 (fiche de bibliothèque) | modèle de `components/Ticket.tsx` ; l'image sert de visuel de partage (`public/evenements/`) |
+| Logo du Coucou | `public/lieux/le-coucou.png` |
 
-Registre d'ensemble : cosy, agréable, « Pinterest vibe ». Pas de
-gamification à état (pas de badges, pas de progression, pas de rôles) —
-il n'y a pas de comptes utilisateurs et il n'y en aura pas avant longtemps.
-La gamification est **spatiale et visuelle**, pas mécanique.
+Les SVG sont ceux du kit, avec la `viewBox` recadrée au plus près du dessin.
 
-Contraintes qui tiennent malgré l'immersion :
-- Toute vue spatiale a une **vue liste équivalente** accessible au clavier
-  et lisible par un lecteur d'écran. L'immersion est la couche, pas le seul
-  chemin.
-- Les embeds Instagram sont des scripts tiers (cookies, RGPD, poids). À
-  défaut, une image hébergée + lien.
+## Intention — le contrat (arbitré le 13/09/2026, toujours valable)
 
-## État actuel du projet — deux couches à ne pas confondre
+- **Accueil = sobre.** Aucune gamification. On trouve sans effort les
+  prochaines dates, ce qu'est BOOKÉ·ES, où ça se passe.
+- **Onglets = immersion.** La Ressourcerie doit donner la sensation d'entrer
+  dans une bibliothèque (référence Habbo) ; la Carte montre les lieux en visuel.
+- Toute vue spatiale garde une **vue liste équivalente**, accessible au clavier.
+- Pas de gamification à état (badges, progression, rôles) : il n'y a pas de
+  comptes.
 
-1. **L'application réelle** (ce dépôt, `app/`, `components/`, `lib/`,
-   `supabase/`) — un Next.js complet, fonctionnel, branché à Supabase.
-   Elle porte encore le nom et l'identité visuelle **Agorabica** (palette
-   café — cream/espresso/brick — typographie Fraunces + Inter).
-2. **La direction visuelle BOOKÉ·ES** — validée dans une maquette HTML
-   statique (`design/bokees-preview.html`, aussi publiée en ligne, voir
-   plus bas), mais **pas encore reportée dans l'application réelle**. C'est
-   la prochaine étape : appliquer ce qui suit aux vrais composants React.
+## Couleurs
 
-Ne pas supposer que le code actuel reflète la marque BOOKÉ·ES — il ne le fait
-pas encore. Ce document décrit la cible.
-
-## Identité de marque
-
-- **Nom** : BOOKÉ·ES (jeu de mots "book" + suffixe inclusif "·es").
-- **Positionnement** : "Book club conscient." — un book club qui aide à
-  comprendre, discuter et agir sur les sujets de société, sans dogmatisme.
-- **Logo** : deux fichiers fournis par la cliente, dans `public/brand/` :
-  - `logo-mark.jpg` — le monogramme (deux cercles imbriqués, façon
-    hourglass/infini), utilisé seul comme icône (header, footer, ticket).
-  - `wordmark.jpg` — le logotype complet "BOOKÉ·ES", lettrage géométrique
-    bespoke (le "O" reprend le monogramme, le "K" a un éclat de lignes
-    radiales, le "S" a un empattement fluide). À utiliser tel quel pour les
-    placements de marque importants (hero, ex-libris) — ce n'est **pas**
-    une police, donc le texte "BOOKÉ·ES" ailleurs sur le site est composé en
-    Space Grotesk gras, qui n'est qu'un standard de substitution.
-  - Les deux images ont un fond blanc à grille (papier quadrillé) — c'est
-    devenu un motif de marque à part entière, pas un simple fond
-    d'exportation (voir "Texture grille" ci-dessous).
-
-## Palette
-
-Décision explicite : **pas de vert menthe, pas de cream+terracotta+serif**
-(ce dernier combo est le cliché le plus reconnaissable des sites générés
-par IA — volontairement évité). La palette retenue est chaude, feutrée,
-sobre :
-
-| Rôle | Variable CSS | Hex | Usage |
+| Rôle | Tailwind | Hex | Usage |
 |---|---|---|---|
-| Fond principal | `--cream` | `#EFE6D3` | papier kraft/avoine, avec grille |
-| Fond carte | `--paper` | `#F6F0E3` | cartes, surfaces |
-| Papier du ticket | `--ticket-paper` | `#F8F3E7` | uniquement le composant ticket, distinct par sa bordure/ombre, pas par une couleur criarde |
-| Encre | `--espresso` | `#241F18` | texte principal |
-| Encre profonde | `--ink` | `#17130E` | fonds sombres (bibliothèque, comptoir) |
-| Accent unique | `--brick` | `#A6553A` | terracotta cassé, PAS le rouge-brique vif d'origine — utilisé avec parcimonie |
-| Accent hover | `--bordeaux` | `#7C3F2C` | |
-| Book Club | `--pine` | `#3C5245` | vert de garde muet, code couleur du format |
-| Communauté | `--mustard` | `#B8823A` | ocre muet, code couleur du format |
+| Texte, traits | `encre` | `#111111` | tout le texte, les filets de 1 px, les boutons pleins |
+| Fond | `white` | `#FFFFFF` | fond de page |
+| Vert | `vert` | `#D9FED7` | Book club, livres, monogramme principal |
+| Rose | `rose` | `#FED7E8` | Rencontres, podcasts, bloc « Rejoindre » |
+| Bleu | `bleu` | `#D7E8FE` | Communauté, documentaires |
+| Jaune | `jaune` | `#FEFBD7` | articles, survol des cartes et boutons secondaires |
+| Légende | `gris` | `#6B6B6B` | légendes ; plus foncé que le gris de la planche, illisible sur blanc |
+| Brouillon | `brouillon` | `#E8590C` | **hors charte**, uniquement pour signaler les contenus provisoires |
 
-Les couleurs fonctionnelles (pine/brick/mustard = book club/rencontre/
-communauté) sont **conservées** pour le repérage visuel des formats
-d'événements — ce n'est pas une décoration, c'est un code couleur utile.
+Les pastels ne servent qu'en **aplat sous du texte noir**, jamais en couleur de
+texte (contraste trop faible). Le code couleur par format (vert / rose / bleu)
+est un repère utile, pas une décoration : on le garde partout où un format
+apparaît (tags, cartes, fiche).
 
 ## Typographie
 
-- **Space Grotesk** (600/700) — titres, wordmark de secours, éléments UI en
-  majuscules. Choisi pour son caractère géométrique proche du logo.
-- **IBM Plex Mono** — tout ce qui évoque la fiche/le ticket de bibliothèque :
-  dates, labels de champs, le ticket entier, les numéros "01/02/03".
-- **Inter** — texte courant (paragraphes). Reste le cheval de bataille pour
-  la lisibilité, volontairement neutre.
+Échelle de la planche (sur un plan de travail de 1 600 px), ramenée à l'écran
+par des classes de `app/globals.css` :
 
-## Texture grille
+| Planche | Classe | Rendu |
+|---|---|---|
+| Titre 1 — Veteran 48 | `.titre-1` | 36 px mobile / 48 px desktop |
+| Titre 2 — Veteran 36 | `.titre-2` | 30 / 36 px |
+| TITRE 3 — Poppins Text Reg 32, capitales | `.titre-3` | 20 / 24 px |
+| Sous-titre — Poppins Text Reg 24 | `.sous-titre` | 18 / 20 px |
+| Légende — Poppins Text Reg 20, gris | `.legende` | 14 px |
+| Texte — Poppins Text Reg 20 | corps | 17 px |
 
-Les deux fichiers logo ont un fond quadrillé (papier millimétré). Plutôt que
-de le considérer comme un artefact d'export, il est repris comme motif de
-fond sur tout le site (`background-image` avec deux `linear-gradient`
-superposés, 22px de pas) — c'est ce qui relie visuellement le reste du site
-au logo, conformément à la demande "une DA en lien avec le logo".
+À savoir :
+- **Veteran Typewriter** n'a ni « », ni tirets longs, ni points de suspension.
+  Ces signes retombent sur Poppins (pile `font-titre`). Éviter les tirets
+  longs dans les titres.
+- **BBB Poppins TN** est une Poppins post-binaire : ses ligatures remplacent les
+  formes inclusives par des glyphes dédiés (« invité·es », « auteur·ice »).
+  C'est automatique, ne pas désactiver les ligatures. Effet de bord : dans le
+  texte courant, « BOOKÉ·ES » devient lui aussi un glyphe fusionné. Si
+  l'équipe préfère le point médian visible pour le nom, il faudra le traiter à
+  part (le logo, lui, est un SVG et n'est pas concerné).
+- Les valeurs tapées à la machine (titres d'ouvrages, auteur·ices, dates de la
+  fiche) sont en Veteran, comme sur le post Instagram.
+- Intitulés de fiche (LIEU, DATE, TITRE/AUTEUR·ICE) : `.etiquette`, capitales
+  espacées.
 
-## Pas d'emoji comme puces
+## Géométrie
 
-Décision explicite après retour "que ça fasse pas IA" : les emoji utilisés
-comme puces de section (📚🎙☕🔍💬🌱 etc.) ont été retirés. Remplacés par :
-- couleur + libellé texte pour les tags de format (pas de picto)
-- numérotation "01/02/03" en mono pour "BOOKÉ·ES en trois gestes"
-- initiale du format (B/R/C) dans les badges circulaires "Nos formats"
+- Filets noirs de 1 px, angles droits : c'est la fiche de bibliothèque.
+  Classe `.fiche`.
+- Les cercles sont réservés à ce qui fait écho au monogramme : boutons et tags
+  en pilule, pastilles numérotées 01/02/03, pins de carte.
+- Pas d'ombre portée, pas d'emoji.
 
-## Coins et géométrie
+## Composants
 
-Ni `rounded-2xl` partout (réflexe SaaS générique), ni tout à angle droit
-(trop clivant en interne). Compromis retenu : rayon modéré (10px) sur les
-cartes/blocs structurels, cercles conservés uniquement là où ils font écho
-au logo (boutons pill, badges ronds, pins de carte).
+- **Fiche de bibliothèque** (`components/Ticket.tsx`) : reproduction HTML du
+  post Instagram — mois / année, logo + slogan, LIEU (logo du lieu s'il existe,
+  sinon son nom), tableau TITRE/AUTEUR·ICE | DATE alimenté par les ressources
+  liées à la séance (`event_slug`), lignes vides pour l'allure d'une carte
+  d'emprunt, mention en italique (`note`). Fond = couleur du format. Utilisée
+  sur l'accueil (prochain rendez-vous) et sur la page de chaque séance.
+- **Carte d'événement** (`EventCard`) : fiche blanche, tag du format, date en
+  capitales, titre en Veteran ; jaune au survol.
+- **Fiche de ressource** (`ResourceCard`) : fiche de catalogue — type et
+  numéro en en-tête, aplat de la couleur du type.
+- **Carte des lieux** (`VenueMap`) : fond OpenStreetMap passé en niveaux de gris
+  (CSS), pins = monogramme BK vert, cadrage automatique sur les lieux.
 
-## Composants clés à reporter dans l'app réelle
+## Contenus provisoires
 
-### 1. Le ticket (`.ticket`)
-Fiche de bibliothèque à l'ancienne inspirée d'une vraie carte d'emprunt :
-mois/année, wordmark, "LIEU" avec adresse alignée à droite, "TITRE/AUTEUR —
-DATE" en ligne de tableau, note de bas de ticket en italique. Pensé pour
-devenir l'écran de confirmation d'inscription à un événement (actuellement
-l'app réelle a un panneau de confirmation générique dans `RegisterForm.tsx`
-— à remplacer par ce composant).
+Demande de l'équipe : pouvoir choisir elle-même tout ce qui est affiché. Donc
+tout texte rédigé par un agent est visible comme tel sur le site :
 
-### 2. La Ressourcerie — expérience "entrer dans une bibliothèque"
-Ce n'est plus une simple étagère décorative. Trois mécaniques, dans
-l'ordre :
-1. **Porte d'entrée cliquable** (`.library-gate`) : deux battants qui
-   coulissent à l'ouverture, révélant la bibliothèque. Reproduit le geste
-   d'entrer physiquement dans un lieu — demande explicite de la cliente
-   après plusieurs itérations jugées "pas encore là".
-2. **Perspective 3D légère** (`perspective` + `rotateX(7deg)` sur le
-   meuble) : donne une impression de profondeur/de lever les yeux vers
-   l'étagère, sans casser la lisibilité.
-3. **Mécanique d'emprunt gamifiée** : cliquer sur un dos de livre
-   "l'emprunte" (incrémente un compteur affiché en haut du rayon,
-   `#bokeesTally`). Les dos décoratifs (`.spine-filler`, sans titre lisible)
-   ne sont pas cliquables — seuls les vrais dos de ressources
-   (`.spine`, avec titre + fiche au survol) le sont.
+- Texte préfixé `[BROUILLON] ` dans `content/` → rendu par `components/T.tsx`,
+  surligné orange pointillé.
+- Enregistrement inventé (`demo: true`) → encadré orange avec la mention
+  « fictif ».
+- `components/LegendeBrouillons.tsx` affiche en bas à gauche le nombre de
+  contenus provisoires de la page, avec un bouton pour masquer le surlignage
+  le temps de juger le design. Elle disparaît quand il ne reste rien.
 
-Palette des dos : cuir dégradé façon reliure Pléiade (`color-mix` CSS),
-tranches dorées à la feuille, lettrage or — PAS les couleurs vives de la
-marque (le vert bouteille/bordeaux/marine sont des tons cuir, pas les
-`--pine`/`--brick` du reste du site).
+Le préfixe reste visible là où le composant `T` ne passe pas (titre d'onglet,
+aperçu de partage, fichier .ics) : c'est voulu, un brouillon ne doit pas
+passer pour un texte validé.
 
-**À faire pour la vraie app** : `app/ressourcerie/page.tsx` affiche
-actuellement une liste de cartes plates (`ResourceCard.tsx`). Il faut
-reconstruire cette page avec la porte + le meuble + la mécanique d'emprunt
-(l'emprunt peut rester un état local/localStorage, pas besoin de le
-persister en base pour le MVP).
+## Ressourcerie immersive — à construire
 
-### 3. La Carte
-Recentrée sur Paris (demande explicite, malgré la communauté n'étant plus
-positionnée comme parisienne dans le texte — la carte de démonstration
-reste un ancrage Paris pour le côté "repéré par la communauté"). Fond
-illustré (Seine stylisée + trame de rues en CSS), pins façon Mapstr avec
-fiche au survol. L'app réelle utilise déjà Leaflet + OpenStreetMap
-(`components/VenueMap.tsx`) — fonctionnellement équivalent, juste avec de
-vraies tuiles de carte au lieu d'un fond illustré. Pas de contradiction à
-résoudre, les deux approches sont compatibles (l'app réelle est même plus
-fonctionnelle que la maquette ici).
+Concept validé avant le kit (maquette `design/bookees-preview.html`, **ancienne
+palette**, à ne reprendre que pour les mécaniques) :
 
-### 4. Touches gamifiées (déjà présentes conceptuellement, à retrouver dans le vrai code)
-- `.btn-arcade` — bouton à relief dur façon Habbo/Neopets (s'enfonce au
-  clic). Déjà implémenté dans l'app réelle (`app/globals.css`).
-- `.xp-bar` — barre de capacité façon barre de vie. Déjà implémenté
-  (`components/CapacityBar.tsx`).
-- `.pixel-badge` — badge à bordure épaisse et ombre dure pour les statuts
-  ("Bientôt complet"). Déjà implémenté.
+1. **Porte d'entrée** : deux battants qui coulissent et révèlent la
+   bibliothèque.
+2. **Perspective légère** sur le meuble (`perspective` + `rotateX(7deg)`).
+3. **Emprunt** : cliquer sur un dos de livre l'« emprunte » (compteur en haut
+   du rayon, état local au navigateur, pas de compte).
 
-Ces trois-là existent déjà dans l'app réelle avec l'ancienne palette
-Agorabica — il suffira de changer les valeurs de couleur, pas la logique.
+À transposer dans la charte actuelle (pastels, filets noirs, Veteran sur les
+dos). La grille de fiches actuelle (`app/ressourcerie/page.tsx`) restera la vue
+liste équivalente exigée par le contrat.
 
 ## Références
 
-- Maquette publiée (interactive, à jour) :
-  https://claude.ai/code/artifact/129c65f6-edc5-4987-a445-17dd9fc7aee3
-- Copie autonome (fonctionne hors ligne, logo intégré) :
-  [`design/bokees-preview.html`](design/bokees-preview.html)
-- Fichiers logo sources : [`public/brand/logo-mark.jpg`](public/brand/logo-mark.jpg),
-  [`public/brand/wordmark.jpg`](public/brand/wordmark.jpg)
-
-## Ce qui reste ouvert
-
-- Le rebrand Agorabica → BOOKÉ·ES n'a pas été appliqué au code réel (nom,
-  emails transactionnels, `README.md`, metadata OpenGraph, favicon,
-  `package.json`, variables d'environnement `EMAIL_FROM`). C'est un chantier
-  à part, distinct de ce document.
-- La mécanique d'emprunt de la Ressourcerie n'existe que dans la maquette
-  HTML — pas encore de composant React équivalent.
-- Pas de décision prise sur la persistance de l'état "emprunté" (local au
-  navigateur suffit pour le MVP, une vraie liste de lecture par utilisateur
-  impliquerait des comptes visiteurs, explicitement hors scope du brief
-  initial).
+- Maquette de l'ancienne direction (pour la Ressourcerie uniquement) :
+  [`design/bookees-preview.html`](design/bookees-preview.html)

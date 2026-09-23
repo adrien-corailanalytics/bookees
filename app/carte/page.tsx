@@ -1,10 +1,16 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { getVenues } from "@/lib/data";
 import MapSection from "@/components/MapSection";
+import T from "@/components/T";
+import { cn } from "@/lib/utils";
+import { textes } from "@/content/textes";
+
+const t = textes.carte;
 
 export const metadata: Metadata = {
-  title: "La Carte",
-  description: "Les lieux où se tiennent les rencontres BOOKÉ·ES — cafés, tiers-lieux et friches culturelles.",
+  title: t.titre,
+  description: t.metaDescription,
 };
 
 export default function CartePage() {
@@ -12,10 +18,9 @@ export default function CartePage() {
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-16">
-      <h1 className="font-serif text-4xl text-espresso sm:text-5xl">La Carte</h1>
-      <p className="mt-3 max-w-xl text-espresso/70">
-        Les lieux qui accueillent les rencontres BOOKÉ·ES — repérés par la communauté, un par
-        un.
+      <h1 className="titre-1">{t.titre}</h1>
+      <p className="sous-titre mt-4 max-w-xl">
+        <T>{t.intro}</T>
       </p>
 
       <div className="mt-10">
@@ -23,32 +28,45 @@ export default function CartePage() {
       </div>
 
       {venues.length === 0 ? (
-        <p className="mt-10 text-espresso/60">Aucun lieu répertorié pour le moment.</p>
+        <p className="legende mt-10">{t.vide}</p>
       ) : (
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {venues.map((venue) => (
-            <div key={venue.id} className="card p-6">
-              <h3 className="font-serif text-lg text-espresso">{venue.name}</h3>
-              <p className="mt-1 text-sm text-espresso/60">
-                {venue.address}
-                {venue.city ? `, ${venue.city}` : ""}
-              </p>
-              {venue.description && (
-                <p className="mt-3 text-sm leading-relaxed text-espresso/75">
-                  {venue.description}
+            <article key={venue.id} id={venue.id} className={cn("fiche flex flex-col scroll-mt-24", venue.demo && "demo")}>
+              {venue.logo_url && (
+                <div className="flex h-32 items-center justify-center border-b border-encre bg-white p-4">
+                  <Image
+                    src={venue.logo_url}
+                    alt=""
+                    width={1430}
+                    height={801}
+                    className="h-full w-auto object-contain"
+                  />
+                </div>
+              )}
+              <div className="p-5">
+                <h2 className="font-titre text-2xl">{venue.name}</h2>
+                <p className="legende mt-1">
+                  {venue.address}
+                  {venue.city ? `, ${venue.city}` : ""}
                 </p>
-              )}
-              {venue.instagram_url && (
-                <a
-                  href={venue.instagram_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-block text-sm font-semibold text-brick hover:text-bordeaux"
-                >
-                  Voir le lieu sur Instagram →
-                </a>
-              )}
-            </div>
+                {venue.description && (
+                  <p className="mt-3 text-sm">
+                    <T>{venue.description}</T>
+                  </p>
+                )}
+                {venue.instagram_url && (
+                  <a
+                    href={venue.instagram_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="lien mt-3 inline-block text-sm font-semibold"
+                  >
+                    {t.instagram} →
+                  </a>
+                )}
+              </div>
+            </article>
           ))}
         </div>
       )}

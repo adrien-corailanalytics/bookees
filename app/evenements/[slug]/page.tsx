@@ -1,11 +1,17 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getEventBySlug } from "@/lib/data";
+import { getEventBySlug, getResourcesForEvent, getVenueByName } from "@/lib/data";
 import { events } from "@/content/events";
 import { siteUrl } from "@/content/site";
-import { EVENT_TYPE_EMOJI, EVENT_TYPE_LABELS, EVENT_TYPE_TAG_CLASSES } from "@/lib/types";
-import { formatDateLong, formatTimeRange } from "@/lib/utils";
+import { textes } from "@/content/textes";
+import { EVENT_TYPE_BG } from "@/lib/types";
+import { cn, formatDateLong, formatHourRange } from "@/lib/utils";
 import CalendarButtons from "@/components/CalendarButtons";
+import Ticket from "@/components/Ticket";
+import T from "@/components/T";
+
+const t = textes.evenement;
 
 export function generateStaticParams() {
   return events.map((e) => ({ slug: e.slug }));
@@ -22,6 +28,7 @@ export async function generateMetadata({
 
   const title = event.title;
   const description = event.question ?? event.description.slice(0, 150);
+  const images = event.image ? [event.image] : undefined;
 
   return {
     title,
@@ -31,8 +38,9 @@ export async function generateMetadata({
       description,
       url: `${siteUrl}/evenements/${event.slug}`,
       type: "article",
+      images,
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images },
   };
 }
 
@@ -41,109 +49,97 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   const event = getEventBySlug(slug);
   if (!event) notFound();
 
-  return (
-    <div className="mx-auto max-w-5xl px-5 py-14">
-      <span className={`tag ${EVENT_TYPE_TAG_CLASSES[event.type]}`}>
-        {EVENT_TYPE_EMOJI[event.type]} {EVENT_TYPE_LABELS[event.type]}
-      </span>
-      <h1 className="mt-4 font-serif text-4xl leading-tight text-espresso sm:text-5xl">
-        {event.title}
-      </h1>
-      {event.question && event.question !== event.title && (
-        <p className="mt-3 max-w-2xl border-l-2 border-espresso/15 pl-3 font-serif text-xl font-medium text-espresso/75">
-          {event.question}
-        </p>
-      )}
+  const resources = getResourcesForEvent(event.slug);
+  const venue = getVenueByName(event.venue_name);
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-[1.4fr_1fr]">
-        <div className="space-y-10">
-          <div className="whitespace-pre-line leading-relaxed text-espresso/85">
-            {event.description}
+  return (
+    <div className="mx-auto max-w-6xl px-5 py-12">
+      <Link href="/evenements" className="etiquette lien">
+        ← {t.retour}
+      </Link>
+
+      <div className={cn("mt-8", event.demo && "demo")}>
+        <span className={cn("tag", EVENT_TYPE_BG[event.type])}>
+          {textes.types.evenement[event.type]}
+        </span>
+        <h1 className="titre-1 mt-4 max-w-3xl">
+          <T>{event.title}</T>
+        </h1>
+        {event.question && event.question !== event.title && (
+          <p className="sous-titre mt-4 max-w-2xl">
+            <T>{event.question}</T>
+          </p>
+        )}
+
+        <div className="mt-10 grid gap-12 lg:grid-cols-[1.3fr_1fr]">
+          <div className="space-y-12">
+            <p className="whitespace-pre-line">
+              <T>{event.description}</T>
+            </p>
+
+            {resources.length > 0 && (
+              <div>
+                <h2 className="titre-3">{t.support}</h2>
+                <ul className="mt-4 divide-y divide-encre border-y border-encre">
+                  {resources.map((resource) => (
+                    <li key={resource.id} className="py-4">
+                      <Link href={`/ressourcerie#${resource.id}`} className="lien font-titre text-xl">
+                        {resource.title}
+                      </Link>
+                      {resource.author && <p className="mt-1 font-titre text-sm">{resource.author}</p>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {event.speakers && event.speakers.length > 0 && (
+              <div>
+                <h2 className="titre-3">{t.intervenants}</h2>
+                <div className="mt-5 grid gap-6 sm:grid-cols-2">
+                  {event.speakers.map((speaker) => (
+                    <div key={speaker.name} className="fiche p-5">
+                      <p className="font-titre text-xl">{speaker.name}</p>
+                      {speaker.role && <p className="legende mt-1">{speaker.role}</p>}
+                      {speaker.bio && <p className="mt-3 text-sm">{speaker.bio}</p>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
-          {event.resource_title && (
-            <div className="card p-6">
-              <p className="tag">Ressource associée</p>
-              <p className="mt-2 font-serif text-lg text-espresso">{event.resource_title}</p>
-              {event.resource_url && (
-                <a
-                  href={event.resource_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1 inline-block text-sm text-brick hover:text-bordeaux"
-                >
-                  Consulter →
-                </a>
-              )}
-            </div>
-          )}
+          <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+            <Ticket event={event} />
 
-          {event.speakers && event.speakers.length > 0 && (
-            <div>
-              <h2 className="font-serif text-2xl text-espresso">Intervenant·es</h2>
-              <div className="mt-5 grid gap-6 sm:grid-cols-2">
-                {event.speakers.map((speaker) => (
-                  <div key={speaker.name} className="card p-5">
-                    <p className="font-serif text-lg text-espresso">{speaker.name}</p>
-                    {speaker.role && (
-                      <p className="text-sm font-medium text-brick">{speaker.role}</p>
-                    )}
-                    {speaker.bio && (
-                      <p className="mt-2 text-sm leading-relaxed text-espresso/70">
-                        {speaker.bio}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="space-y-6 lg:sticky lg:top-24 lg:self-start">
-          <div className="card p-6">
-            <dl className="space-y-3 text-sm">
-              <div>
-                <dt className="font-medium text-espresso">Date</dt>
-                <dd className="text-espresso/70">{formatDateLong(event.start_date)}</dd>
-              </div>
-              <div>
-                <dt className="font-medium text-espresso">Horaire</dt>
-                <dd className="text-espresso/70">
-                  {formatTimeRange(event.start_date, event.end_date)}
-                </dd>
-              </div>
-              <div>
-                <dt className="font-medium text-espresso">Lieu</dt>
-                <dd className="text-espresso/70">
-                  {event.venue_name}
-                  <br />
-                  {event.address}
-                </dd>
-              </div>
+            <dl className="text-sm">
+              <dt className="etiquette">{t.quand}</dt>
+              <dd className="mt-1 first-letter:uppercase">
+                {formatDateLong(event.start_date)}, {formatHourRange(event.start_date, event.end_date)}
+              </dd>
             </dl>
-            <div className="mt-5">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-espresso/50">
-                Ajouter au calendrier
-              </p>
+
+            {venue && (
+              <Link href={`/carte#${venue.id}`} className="lien block text-sm font-semibold">
+                {t.voirSurLaCarte} →
+              </Link>
+            )}
+
+            <div>
+              <p className="etiquette mb-2">{t.calendrier}</p>
               <CalendarButtons event={event} siteUrl={siteUrl} />
             </div>
-          </div>
 
-          {event.ticket_url ? (
-            <a
-              href={event.ticket_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary w-full justify-center"
-            >
-              Réserver sa place
-            </a>
-          ) : (
-            <div className="card p-6 text-sm text-espresso/60">
-              Pas d&rsquo;inscription pour cette séance : venez, c&rsquo;est tout.
-            </div>
-          )}
+            {event.ticket_url ? (
+              <a href={event.ticket_url} target="_blank" rel="noopener noreferrer" className="btn w-full">
+                {t.reserver}
+              </a>
+            ) : (
+              <p className="border-t border-encre pt-4 text-sm">
+                <T>{t.sansInscription}</T>
+              </p>
+            )}
+          </aside>
         </div>
       </div>
     </div>

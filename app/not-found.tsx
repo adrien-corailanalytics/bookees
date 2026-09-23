@@ -1,15 +1,21 @@
+import Image from "next/image";
 import Link from "next/link";
+import T from "@/components/T";
+import { textes } from "@/content/textes";
+import monogram from "@/public/brand/bk-rose.svg";
+
+const t = textes.introuvable;
 
 export default function NotFound() {
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-5 text-center">
-      <p className="font-serif text-6xl text-brick">404</p>
-      <h1 className="mt-4 font-serif text-2xl text-espresso">Cette page n&rsquo;existe pas.</h1>
-      <p className="mt-2 text-espresso/70">
-        Elle a peut-être été déplacée, ou l&rsquo;événement n&rsquo;est plus disponible.
+      <Image src={monogram} alt="" className="h-20 w-20" />
+      <h1 className="titre-2 mt-6">{t.titre}</h1>
+      <p className="mt-3">
+        <T>{t.texte}</T>
       </p>
-      <Link href="/" className="btn-primary mt-8">
-        Retour à l&rsquo;accueil
+      <Link href="/" className="btn mt-8">
+        {t.bouton}
       </Link>
     </div>
   );

@@ -1,16 +1,26 @@
 import type { Venue } from "@/lib/types";
 
-// ⚠️ CONTENU DE DÉMONSTRATION — lieux inventés pendant le prototypage.
-// Le Coucou (lieu du café du 26 septembre) manque : il faut son adresse et ses
-// coordonnées avant de l'ajouter, sinon il n'apparaît pas sur la carte.
+// Le Coucou vient du post Instagram de l'équipe. Les trois autres lieux sont
+// inventés (`demo: true`).
 //
 // Pour trouver lat/lng : ouvrir le lieu sur Google Maps, clic droit sur le
 // point → les deux nombres affichés en haut sont lat puis lng.
-// `instagram_url` alimentera le visuel de la fiche lieu.
+// `name` doit être écrit comme `venue_name` dans content/events.ts pour que
+// la fiche de la séance affiche le logo du lieu.
 
 export const venues: Venue[] = [
   {
+    id: "le-coucou",
+    name: "Le Coucou",
+    address: "183 rue des Pyrénées",
+    city: "75020 Paris",
+    lat: 48.8608583,
+    lng: 2.4003691,
+    logo_url: "/lieux/le-coucou.png",
+  },
+  {
     id: "le-court-bouillon",
+    demo: true,
     name: "Le Court Bouillon",
     address: "6 rue des Capucins",
     city: "Lyon",
@@ -22,6 +32,7 @@ export const venues: Venue[] = [
   },
   {
     id: "la-cabane-a-docs",
+    demo: true,
     name: "La Cabane à Docs",
     address: "12 quai du Port",
     city: "Marseille",
@@ -33,6 +44,7 @@ export const venues: Venue[] = [
   },
   {
     id: "le-chantier",
+    demo: true,
     name: "Le Chantier",
     address: "8 rue du Chai des Farines",
     city: "Bordeaux",

@@ -1,5 +1,8 @@
 import type { Config } from "tailwindcss";
 
+// Charte BOOKÉ·ES (planche ELEMENTS.png de l'équipe design) : texte noir sur
+// blanc, quatre pastels en aplat, Veteran Typewriter pour les titres, BBB
+// Poppins TN pour le reste.
 const config: Config = {
   content: [
     "./app/**/*.{ts,tsx}",
@@ -9,35 +12,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: "#F7F1E6",
-        paper: "#FBF7EE",
-        espresso: "#2E211A",
-        coffee: "#4A2E22",
-        brick: "#B23A26",
-        bordeaux: "#7A1E2B",
-        pine: "#1F4B3F",
-        mustard: "#C98A2B",
-        ink: "#211A15",
+        encre: "#111111",
+        // Gris des légendes : plus foncé que celui de la planche (#BDBDBD),
+        // qui n'est pas lisible sur blanc (contraste 1,9:1 ; ici 5,3:1).
+        gris: "#6B6B6B",
+        vert: "#D9FED7",
+        rose: "#FED7E8",
+        bleu: "#D7E8FE",
+        jaune: "#FEFBD7",
+        // Hors charte exprès : ne sert qu'à signaler les textes provisoires.
+        brouillon: "#E8590C",
       },
       fontFamily: {
-        serif: ["var(--font-fraunces)", "Georgia", "serif"],
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-      },
-      boxShadow: {
-        card: "0 2px 12px rgba(46, 33, 26, 0.08)",
-        cardHover: "0 8px 24px rgba(46, 33, 26, 0.14)",
-      },
-      borderRadius: {
-        card: "0.75rem",
-      },
-      keyframes: {
-        fadeUp: {
-          "0%": { opacity: "0", transform: "translateY(12px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-      },
-      animation: {
-        fadeUp: "fadeUp 0.6s ease-out both",
+        // Veteran n'a ni « », ni tirets longs, ni points de suspension :
+        // ces signes retombent sur Poppins.
+        titre: ["var(--font-veteran)", "var(--font-poppins)", "ui-monospace", "monospace"],
+        sans: ["var(--font-poppins)", "system-ui", "sans-serif"],
       },
     },
   },
