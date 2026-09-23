@@ -23,7 +23,7 @@ description: Use when putting BOOKÉ·ES changes online — pushing a branch, op
 
 1. `git status` propre, branche ≠ `main`, commits relus (`git log main..`) :
    un commit = une intention, message qui dit pourquoi.
-2. `npm run check` et `npm run build -- --webpack`.
+2. `npm run check` et `npm run build`.
 3. Faire le point sur ce qui s'affichera, et le dire à l'utilisateur :
    ```bash
    grep -c '"\[BROUILLON\] ' content/*.ts   # textes provisoires (hors commentaires)

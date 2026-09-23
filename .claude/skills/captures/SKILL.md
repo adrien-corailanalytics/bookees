@@ -8,7 +8,7 @@ description: Use after any visible change on BOOKÉ·ES (styles, components, pag
 ## Lancer
 
 ```bash
-npm run build -- --webpack                         # --webpack : Turbopack natif bloqué sur le Mac d'Adrien
+npm run build
 npx next start -p 3123 > /tmp/bookees-start.log 2>&1 &   # en arrière-plan
 node .claude/skills/captures/captures.mjs http://localhost:3123 --out <dossier> / /evenements /evenements/cafe-26-septembre /ressourcerie /carte /a-propos
 pkill -f "next start -p 3123"                      # à la fin

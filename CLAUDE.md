@@ -40,9 +40,7 @@ explicitement.
 
 - `npm run check` : types, lint, tests (`tests/`). Tourne aussi en hook
   pre-commit. Un commit qui ne passe pas ne part pas.
-- Build : `npm run build -- --webpack` sur le Mac d'Adrien (Turbopack natif y
-  est bloqué, `next dev`/`next build` restent muets) ; `npm run dev -- --webpack`
-  pour le serveur de dev.
+- Build : `npm run build` ; serveur de dev : `npm run dev`.
 - Après tout changement visible : skill `captures` (captures d'écran desktop et
   mobile, débordement horizontal, erreurs console). Regarder les images avant
   de dire que c'est bon.
@@ -77,6 +75,10 @@ explicitement.
 - Les ligatures de BBB Poppins TN sont coupées exprès (`app/globals.css`) :
   sinon « invité·es » et « BOOKÉ·ES » deviennent des glyphes fusionnés.
   Décision du 23/09, ne pas les réactiver sans l'équipe.
+- Alerte macOS « … ne peut pas être ouvert » (sharp, next-swc) ou `next build`
+  muet : fichiers en quarantaine (dossier reçu par AirDrop). Réinstaller
+  `rm -rf node_modules && npm ci`, et retirer la quarantaine du reste :
+  `xattr -dr com.apple.quarantine .`
 - Carte Leaflet : garder `isolate` sur son conteneur, sinon elle passe
   au-dessus de l'en-tête.
 - `NEXT_PUBLIC_SITE_URL` : une vraie URL ou rien, jamais une valeur vide.

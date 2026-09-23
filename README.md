@@ -38,11 +38,10 @@ npm run check    # types + lint + tests (lancé aussi avant chaque commit)
 npm run build    # build de production
 ```
 
-> **Sur le Mac d'Adrien** : la politique de sécurité du système empêche le
-> chargement du binaire natif `@next/swc-darwin-arm64`, et Turbopack (le moteur
-> par défaut de Next 16) en a besoin. Ajouter `-- --webpack` aux deux commandes :
-> `npm run dev -- --webpack`, `npm run build -- --webpack`. Sans effet sur
-> Vercel, qui construit sous Linux avec les bindings natifs.
+> **Alertes macOS** (« sharp… ne peut pas être ouvert », `next build` qui reste
+> muet) : les fichiers sont en quarantaine, typiquement parce que le dossier a
+> été reçu par AirDrop. `rm -rf node_modules && npm ci`, puis
+> `xattr -dr com.apple.quarantine .` à la racine du projet.
 
 ## Modifier le contenu
 

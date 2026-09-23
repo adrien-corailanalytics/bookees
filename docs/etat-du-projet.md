@@ -104,4 +104,6 @@ design dans [design.md](design.md).
   vraies infos du 26/09, textes provisoires signalés. Le Comptoir retiré.
   Tests, CI et règles de travail avec Claude ajoutés ; documentation rangée
   dans `docs/`. Décidé : ligatures inclusives de la police coupées, le point
-  médian reste visible (« BOOKÉ·ES », « invité·es »).
+  médian reste visible (« BOOKÉ·ES », « invité·es »). Les alertes de sécurité
+  macOS venaient du dossier reçu par AirDrop (fichiers en quarantaine) :
+  dépendances réinstallées, Turbopack refonctionne sur le Mac d'Adrien.
